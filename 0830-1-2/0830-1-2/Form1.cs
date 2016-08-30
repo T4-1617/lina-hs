@@ -16,5 +16,20 @@ namespace _0830_1_2
         {
             InitializeComponent();
         }
+
+        private void boxFirstName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void boxLastName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnHello_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
