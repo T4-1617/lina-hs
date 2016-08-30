@@ -30,6 +30,8 @@ namespace _0830_1_2
         private void btnHello_Click(object sender, EventArgs e)
         {
             
+            MessageBox.Show("Hey " + boxFirstName.Text + " " + boxLastName.Text);
+
         }
     }
 }
