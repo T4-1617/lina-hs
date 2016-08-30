@@ -19,7 +19,7 @@ namespace NameApplication
             Console.WriteLine("What is your last name?");
             string lastname = Console.ReadLine();
 
-            Console.WriteLine("Hey " + firstname + " " + lastname);
+            Console.WriteLine("Hey " + lastname);
 
 
         }
