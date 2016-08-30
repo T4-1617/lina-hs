@@ -16,6 +16,11 @@ namespace Test1
         }
 
         private static int ReadNum() {
+            /*
+                The function asks the user to enter a number in the console.
+                The program will repeat itself until a number has been read.
+             */
+
             int num;
 
             while (true)
