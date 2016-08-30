@@ -10,8 +10,26 @@ namespace Test1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Booyah!");
+            Console.WriteLine("");
+
             Console.ReadLine();
+        }
+
+        private static int ReadNum() {
+            int num;
+
+            while (true)
+            {
+                Console.WriteLine("Enter a number.");
+                string line = Console.ReadLine();
+
+                if (int.TryParse(line, out num))
+                {
+                    break;
+                }
+            }
+
+            return num;
         }
     }
 }
