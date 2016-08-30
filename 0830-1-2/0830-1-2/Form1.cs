@@ -22,8 +22,7 @@ namespace _0830_1_2
 
             defFirstName = boxFirstName.Text;
             defLastName = boxLastName.Text;
-            initFirstName = false;
-            initLastName = false;
+
         }
 
         private void boxFirstName_TextChanged(object sender, EventArgs e)
