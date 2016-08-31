@@ -22,12 +22,17 @@ namespace Demo0831_2
             InitializeComponent();
         }
 
-        // Calculate
+        // Calculate values
         private void btnCalculate_Click(object sender, EventArgs e)
         {
 
             int num1;
             int num2;
+
+            bool error = false;
+            string msgError = String.Empty;
+
+            string msgCalc = String.Empty;
 
             /*
              * Check if textboxes contain only numbers.
@@ -43,7 +48,7 @@ namespace Demo0831_2
                 if (isNum)
                 {
                     int calc = 0;
-                    bool canCalc = true;
+                    bool foundArithmetic = true;
 
                     switch (arithmetic)
                     {
@@ -57,32 +62,48 @@ namespace Demo0831_2
                             calc = num1 * num2;
                             break;
                         case "/":
-                            calc = num1 / num2;
+                            if (num2 == 0)
+                            {
+                                error = true;
+                                msgError = "Cannot divide by zero.";
+                            }
+                            else
+                            {
+                                calc = num1 / num2;
+                            }
                             break;
                         default:
-                            canCalc = false;
+                            foundArithmetic = false;
                             break;
                     }
-
-                    if (canCalc)
+                    if (foundArithmetic)
                     {
-                        string show = String.Format("{0} {1} {2} = {3}", num1.ToString(), arithmetic, num2.ToString(), calc.ToString());
-                        lbCalcWindow.Items.Add(show);
+                        msgCalc = String.Format("{0} {1} {2} = {3}", num1.ToString(), arithmetic, num2.ToString(), calc.ToString());
                     }
                     else
                     {
-                        string show = "ERROR: Arithmetic method not found.";
-                        lbCalcWindow.Items.Add(show);
+                        error = true;
+                        msgError = "Arithmetic method not found.";
                     }
-
                 }
             }
             if (!isNum)
             {
-                string show = "ERROR: Number(s) not found.";
-                lbCalcWindow.Items.Add(show);
+                error = true;
+                msgError = "Number(s) not found.";
             }
 
+            if (!error)
+            {
+                lbCalcWindow.Items.Add(msgCalc);
+            }
+            else
+            {
+                lbCalcWindow.Items.Add(String.Format("Error: {0}", msgError));
+            }
+
+            int visibleItems = lbCalcWindow.ClientSize.Height / lbCalcWindow.ItemHeight;
+            lbCalcWindow.TopIndex = Math.Max(lbCalcWindow.Items.Count - visibleItems + 1, 0);
         }
 
         // Set arithmetic method
@@ -145,6 +166,5 @@ namespace Demo0831_2
                 highlight = null;
             }
         }
-
     }
 }
