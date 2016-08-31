@@ -43,16 +43,16 @@ namespace Demo0831_2
 
                     switch (arithmetic)
                     {
-                        case "add":
+                        case "+":
                             calc = num1 + num2;
                             break;
-                        case "sub":
+                        case "-":
                             calc = num1 - num2;
                             break;
-                        case "multi":
+                        case "x":
                             calc = num1 * num2;
                             break;
-                        case "div":
+                        case "/":
                             calc = num1 / num2;
                             break;
                         default:
@@ -62,18 +62,21 @@ namespace Demo0831_2
 
                     if (canCalc)
                     {
-                        MessageBox.Show(calc.ToString());
+                        string show = String.Format("{0} {1} {2} = {3}", num1.ToString(), arithmetic, num2.ToString(), calc.ToString());
+                        lbCalcWindow.Items.Add(show);
                     }
                     else
                     {
-                        MessageBox.Show("Cannot calculate. Please choose an arithmetic method.");
+                        string show = "ERROR: Arithmetic method not found.";
+                        lbCalcWindow.Items.Add(show);
                     }
 
                 }
             }
             if (!isNum)
             {
-                MessageBox.Show("Please enter numbers in both boxes.");
+                string show = "ERROR: Number(s) not found.";
+                lbCalcWindow.Items.Add(show);
             }
 
         }
@@ -83,22 +86,22 @@ namespace Demo0831_2
          */
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            arithmetic = "add";
+            arithmetic = "+";
         }
 
         private void btnSub_Click(object sender, EventArgs e)
         {
-            arithmetic = "sub";
+            arithmetic = "-";
         }
 
         private void btnMulti_Click(object sender, EventArgs e)
         {
-            arithmetic = "multi";
+            arithmetic = "x";
         }
 
         private void btnDiv_Click(object sender, EventArgs e)
         {
-            arithmetic = "div";
+            arithmetic = "/";
         }
     }
 }
