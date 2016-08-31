@@ -38,7 +38,8 @@ namespace Demo0831_2
                 isNum = int.TryParse(tbNumber2.Text, out num2);
                 if (isNum)
                 {
-                    int calc;
+                    int calc = 0;
+                    bool canCalc = true;
 
                     switch (arithmetic)
                     {
@@ -55,11 +56,18 @@ namespace Demo0831_2
                             calc = num1 / num2;
                             break;
                         default:
-                            calc = 0;
+                            canCalc = false;
                             break;
                     }
 
-                    MessageBox.Show(calc.ToString());
+                    if (canCalc)
+                    {
+                        MessageBox.Show(calc.ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cannot calculate. Please choose an arithmetic method.");
+                    }
 
                 }
             }
