@@ -36,6 +36,7 @@
             this.btnDiv = new System.Windows.Forms.Button();
             this.btnCalculate = new System.Windows.Forms.Button();
             this.lbCalcWindow = new System.Windows.Forms.ListBox();
+            this.btnClear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbNumber1
@@ -110,11 +111,22 @@
             this.lbCalcWindow.Size = new System.Drawing.Size(260, 160);
             this.lbCalcWindow.TabIndex = 8;
             // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(97, 181);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 9;
+            this.btnClear.Text = "Clear";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 408);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.lbCalcWindow);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnMulti);
@@ -139,6 +151,7 @@
         private System.Windows.Forms.Button btnDiv;
         private System.Windows.Forms.Button btnCalculate;
         private System.Windows.Forms.ListBox lbCalcWindow;
+        private System.Windows.Forms.Button btnClear;
     }
 }
 

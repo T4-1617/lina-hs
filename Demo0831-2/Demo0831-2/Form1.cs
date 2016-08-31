@@ -103,5 +103,18 @@ namespace Demo0831_2
         {
             arithmetic = "/";
         }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            tbNumber1.Text = String.Empty;
+            tbNumber2.Text = String.Empty;
+            arithmetic = String.Empty;
+
+            for (int i = lbCalcWindow.Items.Count - 1; i >= 0; i--)
+            {
+                lbCalcWindow.Items.RemoveAt(i);
+            }
+        }
+
     }
 }
