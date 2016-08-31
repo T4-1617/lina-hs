@@ -12,14 +12,17 @@ namespace Demo0831_2
 {
     public partial class Form1 : Form
     {
+        // 'Global' variables
         string arithmetic;
         Button highlight = null;
 
+        // Initialize form.
         public Form1()
         {
             InitializeComponent();
         }
 
+        // Calculate
         private void btnCalculate_Click(object sender, EventArgs e)
         {
 
@@ -82,44 +85,52 @@ namespace Demo0831_2
 
         }
 
-        /*
-         * Set calculation method.
-         */
+        // Set arithmetic method
         private void btnAdd_Click(object sender, EventArgs e)
         {
             arithmetic = "+";
             HighlightButton(btnAdd);
         }
-
         private void btnSub_Click(object sender, EventArgs e)
         {
             arithmetic = "-";
             HighlightButton(btnSub);
         }
-
         private void btnMulti_Click(object sender, EventArgs e)
         {
             arithmetic = "x";
             HighlightButton(btnMulti);
         }
-
         private void btnDiv_Click(object sender, EventArgs e)
         {
             arithmetic = "/";
             HighlightButton(btnDiv);
         }
 
+        // Clear calculator
         private void btnClear_Click(object sender, EventArgs e)
         {
+            // Clear the textboxes.
             tbNumber1.Text = String.Empty;
             tbNumber2.Text = String.Empty;
+
+            // Clear the arithmetic method.
             arithmetic = String.Empty;
             HighlightButton(null);
+
+            // Clear the listbox.
             lbCalcWindow.Items.Clear();
         }
 
+        // Custom functions
         private void HighlightButton(Button button)
         {
+            /*
+             *  Highlight arithmetic method
+             * 
+             *  Clear highlight if button is null.
+             */
+
             if (highlight != null)
             {
                 highlight.BackColor = DefaultBackColor;
