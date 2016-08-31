@@ -13,6 +13,7 @@ namespace Demo0831_2
     public partial class Form1 : Form
     {
         string arithmetic;
+        Button highlight = null;
 
         public Form1()
         {
@@ -87,21 +88,25 @@ namespace Demo0831_2
         private void btnAdd_Click(object sender, EventArgs e)
         {
             arithmetic = "+";
+            HighlightButton(btnAdd);
         }
 
         private void btnSub_Click(object sender, EventArgs e)
         {
             arithmetic = "-";
+            HighlightButton(btnSub);
         }
 
         private void btnMulti_Click(object sender, EventArgs e)
         {
             arithmetic = "x";
+            HighlightButton(btnMulti);
         }
 
         private void btnDiv_Click(object sender, EventArgs e)
         {
             arithmetic = "/";
+            HighlightButton(btnDiv);
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -109,10 +114,24 @@ namespace Demo0831_2
             tbNumber1.Text = String.Empty;
             tbNumber2.Text = String.Empty;
             arithmetic = String.Empty;
+            HighlightButton(null);
+            lbCalcWindow.Items.Clear();
+        }
 
-            for (int i = lbCalcWindow.Items.Count - 1; i >= 0; i--)
+        private void HighlightButton(Button button)
+        {
+            if (highlight != null)
             {
-                lbCalcWindow.Items.RemoveAt(i);
+                highlight.BackColor = DefaultBackColor;
+            }
+            if (button != null)
+            {
+                button.BackColor = Color.FromArgb(100, 231, 76, 60);
+                highlight = button;
+            }
+            else
+            {
+                highlight = null;
             }
         }
 
