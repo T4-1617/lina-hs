@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lbCalcDisplay = new System.Windows.Forms.ListBox();
             this.btnOne = new System.Windows.Forms.Button();
             this.btnTwo = new System.Windows.Forms.Button();
             this.btnThree = new System.Windows.Forms.Button();
@@ -51,13 +51,13 @@
             this.btnClear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listBox1
+            // lbCalcDisplay
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(11, 12);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(260, 95);
-            this.listBox1.TabIndex = 0;
+            this.lbCalcDisplay.FormattingEnabled = true;
+            this.lbCalcDisplay.Location = new System.Drawing.Point(11, 12);
+            this.lbCalcDisplay.Name = "lbCalcDisplay";
+            this.lbCalcDisplay.Size = new System.Drawing.Size(260, 95);
+            this.lbCalcDisplay.TabIndex = 0;
             // 
             // btnOne
             // 
@@ -253,6 +253,7 @@
             this.btnClear.TabIndex = 17;
             this.btnClear.Text = "C";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // Form1
             // 
@@ -279,7 +280,7 @@
             this.Controls.Add(this.btnThree);
             this.Controls.Add(this.btnTwo);
             this.Controls.Add(this.btnOne);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lbCalcDisplay);
             this.Name = "Form1";
             this.Text = "Calculator";
             this.ResumeLayout(false);
@@ -288,7 +289,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lbCalcDisplay;
         private System.Windows.Forms.Button btnOne;
         private System.Windows.Forms.Button btnTwo;
         private System.Windows.Forms.Button btnThree;

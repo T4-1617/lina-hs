@@ -16,6 +16,7 @@ namespace Demo0831_2
         List<CalcNum> listNum = new List<CalcNum>();
         int cNum = 0;
         int cParLvL = 0;
+        bool errorFound;
 
         private class CalcNum
         {
@@ -99,22 +100,42 @@ namespace Demo0831_2
                 case "multi":
                     return n1 * n2;
                 case "div":
-                    return n1 / n2;
+                    if (n2 == 0)
+                    {
+                        Error("Cannot divide by zero");
+                        return 0;
+                    }
+                    else
+                    {
+                        return n1 / n2;
+                    }
                 default:
                     return -1;
             }
+        }
+        private void CalculateAllViable(string op)
+        {
+            // Betterments to CalculateWithPrevCalcNum
+            // Work in progress
         }
         private void CalculateWithPrevCalcNum(string op)
         {
             int index = listNum.Count - 1;
             int lNum = listNum[index].num;
 
-            int nNum = Calculate(lNum, cNum, op);
+            int nNum = Calculate(lNum, cNum, listNum[index].op);
 
-            listNum[index].num = nNum;
-            listNum[index].op = op;
-            cNum = 0;
-
+            if (!errorFound)
+            {
+                lbCalcDisplay.Items.Add(nNum.ToString());
+                listNum[index].num = nNum;
+                listNum[index].op = op;
+                cNum = 0;
+            }
+            else
+            {
+                errorFound = false;
+            }
         }
         private void CalculateAll()
         {
@@ -122,14 +143,38 @@ namespace Demo0831_2
             for (int i = listNum.Count - 1; i >= 0; i--)
             {
                 num = Calculate(listNum[i].num, num, listNum[i].op);
+                if (errorFound)
+                {
+                    errorFound = false;
+                    break;
+                }
             }
+            lbCalcDisplay.Items.Add(num.ToString());
         }
-        // Reset
+        // Reset values
         private void ResetAll()
         {
-
+            listNum.Clear();
+            listNum.Add(new CalcNum(0, "add", 0));
+            cNum = 0;
+            cParLvL = 0;
         }
-        // Clear
+        // Clear screen
+        private void ClearAll()
+        {
+            ResetAll();
+
+            lbCalcDisplay.Items.Clear();
+        }
+        // Error messages
+        private void Error(string msgError)
+        {
+            ResetAll();
+            msgError = string.Format("ERROR: {0}. \n", msgError);
+            lbCalcDisplay.Items.Add(msgError);
+            lbCalcDisplay.Items.Add("Program has been reset.");
+            errorFound = true;
+        }
 
         // Number buttons
         private void btnZero_Click(object sender, EventArgs e)
@@ -195,8 +240,14 @@ namespace Demo0831_2
         private void btnCalc_Click(object sender, EventArgs e)
         {
             CalculateAll();
+            ResetAll();
         }
 
+        // Clear Button
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearAll();
+        }
 
     }
 }
