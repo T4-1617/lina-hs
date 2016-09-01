@@ -41,11 +41,14 @@ namespace Demo0831_2
         // Number pressed
         private void NumberPressed(int number)
         {
+            // Add the pressed number to the current number
             cNum = cNum * 10 + number;
         }
         // Operator pressed
         private void OperatorPressed(string op)
         {
+            // Compare arithmetic method to previous arithmetic.
+            // If the new method is of equal or lower priority then calculate.
             if (GetOpPrio(op) <= GetOpPrio(listNum[listNum.Count - 1].op))
             {
                 CalculateWithPrevCalcNum(op);
@@ -54,10 +57,9 @@ namespace Demo0831_2
             {
                 AddCalcNum(op);
             }
-            // Compare arithmetic method to previous arithmetic. If equal or below then calculate.
         }
-        // Parameter pressed
-        private void ParameterPressed(string par)
+        // Parenthesis pressed
+        private void ParenthesisPressed(string par)
         {
             // If start = increment par lvl
             // If end = decrement par lvl
