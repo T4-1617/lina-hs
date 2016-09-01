@@ -114,9 +114,79 @@ namespace Demo0831_2
                     break;
             }
 
+            MessageBox.Show(nNum.ToString());
             listNum[index].num = nNum;
             listNum[index].op = op;
+            cNum = 0;
 
         }
+
+        // Number buttons
+        private void btnZero_Click(object sender, EventArgs e)
+        {
+            NumberPressed(0);
+        }
+        private void btnOne_Click(object sender, EventArgs e)
+        {
+            NumberPressed(1);
+        }
+        private void btnTwo_Click(object sender, EventArgs e)
+        {
+            NumberPressed(2);
+        }
+        private void btnThree_Click(object sender, EventArgs e)
+        {
+            NumberPressed(3);
+        }
+        private void btnFour_Click(object sender, EventArgs e)
+        {
+            NumberPressed(4);
+        }
+        private void btnFive_Click(object sender, EventArgs e)
+        {
+            NumberPressed(5);
+        }
+        private void btnSix_Click(object sender, EventArgs e)
+        {
+            NumberPressed(6);
+        }
+        private void btnSeven_Click(object sender, EventArgs e)
+        {
+            NumberPressed(7);
+        }
+        private void btnEight_Click(object sender, EventArgs e)
+        {
+            NumberPressed(8);
+        }
+        private void btnNine_Click(object sender, EventArgs e)
+        {
+            NumberPressed(9);
+        }
+
+        // Operator Buttons
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            OperatorPressed("add");
+        }
+        private void btnSub_Click(object sender, EventArgs e)
+        {
+            OperatorPressed("sub");
+        }
+        private void btnMulti_Click(object sender, EventArgs e)
+        {
+            OperatorPressed("multi");
+        }
+        private void btnDiv_Click(object sender, EventArgs e)
+        {
+            OperatorPressed("div");
+        }
+
+        // Calculate Button
+        private void btnCalc_Click(object sender, EventArgs e)
+        {
+            Calculate(String.Empty);
+        }
+
+
     }
 }
