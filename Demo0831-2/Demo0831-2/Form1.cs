@@ -47,7 +47,7 @@ namespace Demo0831_2
         {
             if (GetOpPrio(op) <= GetOpPrio(listNum[listNum.Count - 1].op))
             {
-                Calculate(op);
+                CalculateWithPrevCalcNum(op);
             }
             else
             {
@@ -88,38 +88,48 @@ namespace Demo0831_2
             cNum = 0;
         }
         // Calculate
-        private void Calculate(string op)
+        private int Calculate(int n1, int n2, string op)
         {
-
-            int index = listNum.Count - 1;
-            int nNum;
-            int lNum = listNum[index].num;
-
-            switch (listNum[index].op)
+            switch (op)
             {
                 case "add":
-                    nNum = lNum + cNum;
-                    break;
+                    return n1 + n2;
                 case "sub":
-                    nNum = lNum - cNum;
-                    break;
+                    return n1 - n2;
                 case "multi":
-                    nNum = lNum * cNum;
-                    break;
+                    return n1 * n2;
                 case "div":
-                    nNum = lNum / cNum;
-                    break;
+                    return n1 / n2;
                 default:
-                    nNum = 0;
-                    break;
+                    return -1;
             }
+        }
+        private void CalculateWithPrevCalcNum(string op)
+        {
+            int index = listNum.Count - 1;
+            int lNum = listNum[index].num;
 
-            MessageBox.Show(nNum.ToString());
+            int nNum = Calculate(lNum, cNum, op);
+
             listNum[index].num = nNum;
             listNum[index].op = op;
             cNum = 0;
 
         }
+        private void CalculateAll()
+        {
+            int num = cNum;
+            for (int i = listNum.Count - 1; i >= 0; i--)
+            {
+                num = Calculate(listNum[i].num, num, listNum[i].op);
+            }
+        }
+        // Reset
+        private void ResetAll()
+        {
+
+        }
+        // Clear
 
         // Number buttons
         private void btnZero_Click(object sender, EventArgs e)
@@ -184,7 +194,7 @@ namespace Demo0831_2
         // Calculate Button
         private void btnCalc_Click(object sender, EventArgs e)
         {
-            Calculate(String.Empty);
+            CalculateAll();
         }
 
 
