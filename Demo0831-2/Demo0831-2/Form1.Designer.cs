@@ -193,7 +193,6 @@
             this.btnParStart.TabIndex = 14;
             this.btnParStart.Text = "(";
             this.btnParStart.UseVisualStyleBackColor = true;
-            this.btnParStart.Click += new System.EventHandler(this.btnParStart_Click);
             // 
             // btnZero
             // 
