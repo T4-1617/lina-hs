@@ -17,6 +17,14 @@ namespace Demo0902
          *          - The Grid constantly refreshes after every shoot iteration causing unecessary strain.
          *              - Ideally, should refresh when something has changed on the grid.
          *              - The console application causes limitation on graphical effects.
+         *          - GOLD PLATING: Shoot chooses a random slot to shoot, regardless of whether the position has been shot previously.
+         *              - Can be fixed through the use of a list containing all positions in the grid.
+         *                Then removing the position once it has been shot.
+         *                Eg.
+         *                  List<GridPositions> GridSlots = {{0,0}, {0,1}}
+         *                  Once pos 0;1 has been shot you remove it and only 0;0 remains.
+         *                  The RNG then randomly generates a number from 0 up to, but not including, the length of the list.         
+         *          
          */
 
         class GameObject
@@ -95,7 +103,7 @@ namespace Demo0902
 
         }
 
-        // Global variables
+        // Global vari ables
         private static Random RNG = new Random();
         private static GameObject Game = new GameObject(7, 5);
 
