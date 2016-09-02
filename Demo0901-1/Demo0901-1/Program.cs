@@ -10,16 +10,15 @@ namespace Demo0901_1
     {
         static void Main(string[] args)
         {
-            // Get full name
-            string fullname = GetName();
-            // Print name length
-            Console.WriteLine(GetStringCharacterNum(fullname));
-            Console.WriteLine(GetStringCharacterNumWithoutSpaces(fullname));
 
-            // Get first and last name
+            // Get all name variables
+            string fullname = GetName();
             string firstname = GetFirstName(fullname);
             string lastname = GetLastName(fullname);
-            // Print names
+            
+            // Print the length of the name variables
+            Console.WriteLine(fullname.Length);
+            Console.WriteLine(GetStringCharacterNumWithoutSpaces(fullname));
             Console.WriteLine(
                 string.Format(
                     "Your first name is {0} which consists of {1} characters.",
@@ -35,18 +34,23 @@ namespace Demo0901_1
                     "{0}, {1}",
                     lastname,
                     firstname));
+
+            // Print each character of the full name individually and in uppercase
             PrintStringCharEachLine(StringToUppercase(firstname));
             PrintStringCharEachLine(StringToUppercase(lastname));
-            string nameReverseLower = ReverseString(StringToLowercase(fullname));
-            Console.WriteLine(nameReverseLower);
+
+            // Print full name string in lowercase
+            Console.WriteLine(ReverseString(StringToLowercase(fullname)));
+
+            // Print full name with every other character in upper- and lowercase
             Console.WriteLine(EveryOtherUpperLower(fullname));
+
+            // Print full name with characters a, e, l & t in leetspeech
             Console.WriteLine(StringToLeetSpeech(fullname));
-
-
-
 
         }
 
+        // Functions
         private static string GetName()
         {
             // Reads a name from the user
@@ -54,11 +58,6 @@ namespace Demo0901_1
             string name = Console.ReadLine();
 
             return name;
-        }
-        private static int GetStringCharacterNum(string s)
-        {
-            // Get the numerical length of a string
-            return s.Length;
         }
         private static int GetStringCharacterNumWithoutSpaces(string s)
         {
@@ -107,7 +106,7 @@ namespace Demo0901_1
         }
         private static string StringToUppercase(string s)
         {
-            // Makes all characters of a string to uppercase
+            // Makes all characters in a string to uppercase
             char[] cA = s.ToCharArray();
 
             for (int i = 0; i < cA.Count(); i++)
@@ -137,7 +136,7 @@ namespace Demo0901_1
         }
         private static string EveryOtherUpperLower(string s)
         {
-            // Every other character in the string is made uppercase or lowercase
+            // Turns every other of a string to uppercase or lowercase
             char[] cA = s.ToCharArray();
 
             for (int i = 0; i < cA.Count(); i++)
@@ -162,7 +161,7 @@ namespace Demo0901_1
         }
         private static string StringToLeetSpeech(string s)
         {
-            // Turns a string to leet speech
+            // Turns the letters a, e, l & t of a string to leetspeech
             char[] cA = s.ToCharArray();
 
             for (int i = 0; i < cA.Count(); i++)
@@ -180,7 +179,7 @@ namespace Demo0901_1
                     case 'E':
                         cA[i] = '3';
                         break;
-                    case 'I':
+                    case 'L':
                         cA[i] = '1';
                         break;
                     case 'T':
