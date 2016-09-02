@@ -9,14 +9,25 @@ namespace Demo0902
     class Program
     {
 
-        class Ocean
+        /*
+         *      Known problems:
+         *          - The Grid is a char array (16 bytes each) instead of a boolean array (8 bytes each).
+         *              - This was done knowingly, wanted to display 3 different results.
+         *                  - May be possible to use null as a 3rd value (untested).
+         *          - The Grid constantly refreshes after every shoot iteration causing unecessary strain.
+         *              - Ideally, should refresh when something has changed on the grid.
+         *              - The console application causes limitation on graphical effects.
+         */
+
+        class GameObject
         {
             public int SizeX = 0;
             public int SizeY = 0;
-            public int Boats;
+            public int Ships;   // Amount will be randomly assigned upon creating
+            public int Shots = 0;
             public char[,] Grid;
 
-            public Ocean(int GridSizeX, int GridSizeY)
+            public GameObject(int GridSizeX, int GridSizeY)
             {
                 SizeX = GridSizeX;
                 SizeY = GridSizeY;
@@ -27,9 +38,9 @@ namespace Demo0902
             private void CreateGrid()
             {
 
+                // Initialize Grid with default value
                 Grid = new char[SizeX, SizeY];
 
-                // Create the sea
                 for (int x = 0; x < SizeX; x++)
                 {
                     for (int y = 0; y < SizeY; y++)
@@ -40,20 +51,20 @@ namespace Demo0902
                     }
                 }
 
-                // Create boats
-                Boats = RNG.Next(3, 6); // Decide between 3-5 boats
-                int CreatedBoats = 0;
-                while (CreatedBoats < Boats)
+                // Assign ships to Grid slots
+                Ships = RNG.Next(3, 6); // Decide between 3-5 ships
+                int CreatedShips = 0;
+                while (CreatedShips < Ships)
                 {
                     // Choose random slot in grid
                     int SlotX = RNG.Next(0, SizeX);
                     int SlotY = RNG.Next(0, SizeY);
 
-                    // Check slot does not have a boat
-                    if (Grid[SlotX, SlotY] != 'B')
+                    // Check slot does not have a ship
+                    if (Grid[SlotX, SlotY] != 'S')
                     {
-                        Grid[SlotX, SlotY] = 'B';
-                        CreatedBoats++;
+                        Grid[SlotX, SlotY] = 'S';
+                        CreatedShips++;
                     }
                 }
 
@@ -86,20 +97,22 @@ namespace Demo0902
 
         // Global variables
         private static Random RNG = new Random();
-        private static Ocean TheOcean = new Ocean(7, 5);
-        private static int shots = 0;
+        private static GameObject Game = new GameObject(7, 5);
 
         static void Main(string[] args)
         {
-            TheOcean.DisplayGrid();
+            // Display Grid from start
+            Game.DisplayGrid();
 
-            while (TheOcean.Boats > 0)
+            // Keep running while ships remain
+            while (Game.Ships > 0)
             {
+                System.Threading.Thread.Sleep(500);
+
                 Shoot();
-                TheOcean.DisplayGrid();
+                Game.DisplayGrid();
                 PrintShots();
 
-                System.Threading.Thread.Sleep(500);
             }
 
         }
@@ -107,29 +120,29 @@ namespace Demo0902
         // Shooting functions
         private static void Shoot()
         {
-            // Shoots a random grid slot
+            // Shoot a random grid slot
+            // Trigger function Hit() if the slot contains a ship
+            int SlotX = RNG.Next(0, Game.SizeX);
+            int SlotY = RNG.Next(0, Game.SizeY);
 
-            int SlotX = RNG.Next(0, TheOcean.SizeX);
-            int SlotY = RNG.Next(0, TheOcean.SizeY);
-
-            if (TheOcean.Grid[SlotX, SlotY] == 'B')
+            if (Game.Grid[SlotX, SlotY] == 'S')
             {
                 Hit(SlotX, SlotY);
             }
 
-            shots++;
+            Game.Shots++;
 
         }
         private static void Hit(int x, int y)
         {
-            // Sinks the boat in the position that was hit
-            TheOcean.Grid[x, y] = 'X';
-            TheOcean.Boats--;
+            // Sinks the ship in the position that was hit
+            Game.Grid[x, y] = 'X';
+            Game.Ships--;
         }
         private static void PrintShots()
         {
             // Displays the amount of fired shots
-            Console.WriteLine(string.Format("Shots fired: {0}", shots.ToString()));
+            Console.WriteLine(string.Format("Shots fired: {0}", Game.Shots.ToString()));
         }
 
     }
