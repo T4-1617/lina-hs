@@ -17,7 +17,9 @@ namespace Demo0902
          *          - The Grid constantly refreshes after every shoot iteration causing unecessary strain.
          *              - Ideally, should refresh when something has changed on the grid.
          *              - The console application causes limitation on graphical effects.
-         *          - GOLD PLATING: Shoot chooses a random slot to shoot, regardless of whether the position has been shot previously.
+         *              
+         *      GOLD PLATING:
+         *          - Shoot chooses a random slot to shoot, regardless of whether the position has been shot previously.
          *              - Can be fixed through the use of a list containing all positions in the grid.
          *                Then removing the position once it has been shot.
          *                Eg.
@@ -79,8 +81,6 @@ namespace Demo0902
             }
             public void DisplayGrid()
             {
-                Console.Clear();
-
                 // Displays the grid on the screen
                 for (int x = 0; x < SizeX; x++)
                 {
@@ -103,7 +103,7 @@ namespace Demo0902
 
         }
 
-        // Global vari ables
+        // Global variables
         private static Random RNG = new Random();
         private static GameObject Game = new GameObject(7, 5);
 
@@ -118,6 +118,7 @@ namespace Demo0902
                 System.Threading.Thread.Sleep(500);
 
                 Shoot();
+                Console.Clear();
                 Game.DisplayGrid();
                 PrintShots();
 
