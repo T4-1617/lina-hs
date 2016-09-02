@@ -84,14 +84,51 @@ namespace Demo0902
 
         }
 
+        // Global variables
         private static Random RNG = new Random();
         private static Ocean TheOcean = new Ocean(7, 5);
         private static int shots = 0;
 
         static void Main(string[] args)
         {
+            TheOcean.DisplayGrid();
 
+            while (TheOcean.Boats > 0)
+            {
+                Shoot();
+                TheOcean.DisplayGrid();
+                PrintShots();
 
+                System.Threading.Thread.Sleep(500);
+            }
+
+        }
+
+        // Shooting functions
+        private static void Shoot()
+        {
+            // Shoots a random grid slot
+
+            int SlotX = RNG.Next(0, TheOcean.SizeX);
+            int SlotY = RNG.Next(0, TheOcean.SizeY);
+
+            if (TheOcean.Grid[SlotX, SlotY] == 'B')
+            {
+                Hit(SlotX, SlotY);
+            }
+
+            shots++;
+
+        }
+        private static void Hit(int x, int y)
+        {
+            // Sinks the boat in the position that was hit
+            TheOcean.Grid[x, y] = 'X';
+            TheOcean.Boats--;
+        }
+        private static void PrintShots()
+        {
+            // Displays the amount of fired shots
             Console.WriteLine(string.Format("Shots fired: {0}", shots.ToString()));
         }
 
