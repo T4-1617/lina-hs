@@ -9,8 +9,6 @@ namespace Demo0902
     class Program
     {
 
-        private static Random RNG;
-
         class Ocean
         {
             public int SizeX = 0;
@@ -28,6 +26,8 @@ namespace Demo0902
             
             private void CreateGrid()
             {
+
+                Grid = new char[SizeX, SizeY];
 
                 // Create the sea
                 for (int x = 0; x < SizeX; x++)
@@ -59,7 +59,9 @@ namespace Demo0902
 
             }
             public void DisplayGrid()
-            { 
+            {
+                Console.Clear();
+
                 // Displays the grid on the screen
                 for (int x = 0; x < SizeX; x++)
                 {
@@ -71,6 +73,10 @@ namespace Demo0902
                             (" {0} ",
                             Grid[x, y].ToString())
                         );
+                        if (y == SizeY - 1)
+                        {
+                            Console.Write("\n");
+                        }
                     }
                 }
 
@@ -78,9 +84,15 @@ namespace Demo0902
 
         }
 
+        private static Random RNG = new Random();
+        private static Ocean TheOcean = new Ocean(7, 5);
+        private static int shots = 0;
+
         static void Main(string[] args)
         {
 
+
+            Console.WriteLine(string.Format("Shots fired: {0}", shots.ToString()));
         }
 
     }
