@@ -91,6 +91,59 @@ namespace CardsW36
 
         static void Main(string[] args)
         {
+
+            // Player draws cards until no cards remaining.
+            while (deck.CardsRemaining > 0)
+            {
+
+                Console.WriteLine("Press Enter for a card.");
+                Console.ReadLine();
+
+                string suit;
+                string value;
+                Card card = deck.Draw();
+
+                switch (card.suit)
+                {
+                    case 0:
+                        suit = "Hearts";
+                        break;
+                    case 1:
+                        suit = "Diamonds";
+                        break;
+                    case 2:
+                        suit = "Spades";
+                        break;
+                    case 3:
+                        suit = "Clubs";
+                        break;
+                    default:
+                        suit = String.Empty;
+                        break;
+                }
+                switch (card.value)
+                {
+                    case 0:
+                        value = "Ace";
+                        break;
+                    case 11:
+                        value = "Jack";
+                        break;
+                    case 12:
+                        value = "Queen";
+                        break;
+                    case 13:
+                        value = "King";
+                        break;
+                    default:
+                        value = card.value.ToString();
+                        break;
+                }
+
+                Console.WriteLine(String.Format("You drew the {0} of {1}.", value, suit));
+
+            }
+
         }
     }
 }
