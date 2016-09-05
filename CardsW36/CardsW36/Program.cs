@@ -44,14 +44,14 @@ namespace CardsW36
 
                 // Standard deck cards
                 int CardColors = 4;
-                int CardValues = 13;
+                int CardValues = 14;
 
                 Cards.Clear();
 
                 // Set to default values
                 for (int color = 0; color < CardColors; color++)
                 {
-                    for (int value = 0; value < CardValues; value++)
+                    for (int value = 1; value < CardValues; value++)
                     {
                         Cards.Add(new Card(color, value));
                     }
@@ -124,8 +124,8 @@ namespace CardsW36
                         suit = String.Empty;
                         break;
                 }
-                // Get value name if existing
-                switch (card.value + 1)
+                // Get value name if value has name
+                switch (card.value)
                 {
                     case 1:
                         value = "Ace";
@@ -140,11 +140,11 @@ namespace CardsW36
                         value = "King";
                         break;
                     default:
-                        value = (card.value + 1).ToString();
+                        value = card.value.ToString();
                         break;
                 }
 
-                DrawnCardValue += (card.value + 1);
+                DrawnCardValue += card.value;
 
                 Console.WriteLine(String.Format("You drew the {0} of {1}. There are {2} cards remaining. Your total score is {3}.", value, suit, deck.CardsRemaining, DrawnCardValue));
 
