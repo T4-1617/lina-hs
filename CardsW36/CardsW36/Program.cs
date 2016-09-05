@@ -87,12 +87,14 @@ namespace CardsW36
             }
         }
 
-        static Deck deck = new Deck();
 
         static void Main(string[] args)
         {
 
-            // Player draws cards until no cards remaining.
+            Deck deck = new Deck();
+            int DrawnCardValue = 0;
+
+            // Player draws cards until no cards remaining
             while (deck.CardsRemaining > 0)
             {
 
@@ -103,6 +105,7 @@ namespace CardsW36
                 string value;
                 Card card = deck.Draw();
 
+                // Get suit 'name'
                 switch (card.suit)
                 {
                     case 0:
@@ -121,9 +124,10 @@ namespace CardsW36
                         suit = String.Empty;
                         break;
                 }
-                switch (card.value)
+                // Get value name if existing
+                switch (card.value + 1)
                 {
-                    case 0:
+                    case 1:
                         value = "Ace";
                         break;
                     case 11:
@@ -136,11 +140,13 @@ namespace CardsW36
                         value = "King";
                         break;
                     default:
-                        value = card.value.ToString();
+                        value = (card.value + 1).ToString();
                         break;
                 }
 
-                Console.WriteLine(String.Format("You drew the {0} of {1}.", value, suit));
+                DrawnCardValue += (card.value + 1);
+
+                Console.WriteLine(String.Format("You drew the {0} of {1}. There are {2} cards remaining. Your total score is {3}.", value, suit, deck.CardsRemaining, DrawnCardValue));
 
             }
 
