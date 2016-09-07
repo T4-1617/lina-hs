@@ -32,6 +32,16 @@ namespace BlackjackW36
                         case "Y":
                             Hit();
                             Console.WriteLine("Points: {0}", playerPoints);
+                            if (CheckWinCondition())
+                            {
+                                Console.WriteLine("You won!");
+                                StopGame();
+                            }
+                            else if (CheckLooseCondition())
+                            {
+                                Console.WriteLine("Your points exceeded 21. You lost!");
+                                NewRound();
+                            }
                             break;
                         case "N":
                             Stand();
@@ -43,6 +53,10 @@ namespace BlackjackW36
                 }
 
                 Console.WriteLine("No cards remaining; game is over.");
+            }
+            void StopGame()
+            {
+                deck.ClearDeck();
             }
             public void NewGame()
             {
@@ -73,6 +87,25 @@ namespace BlackjackW36
             void Stand()
             {
                 Console.WriteLine("You finished with {0} points.", playerPoints);
+            }
+            bool CheckWinCondition()
+            {
+                switch (playerPoints)
+                {
+                    case 21:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+            bool CheckLooseCondition()
+            {
+                if (playerPoints > 21)
+                {
+                    return true;
+                }
+
+                return false;
             }
 
         }
