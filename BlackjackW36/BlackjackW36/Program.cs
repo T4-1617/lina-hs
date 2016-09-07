@@ -8,6 +8,13 @@ namespace BlackjackW36
 {
     class Program
     {
+
+        /*
+         *      Possible GOLD PLATING feature(s):
+         *          - Ask if player wants to continue the game after it has run
+         * 
+         */
+
         static Random RNG = new Random();
 
         class Blackjack
@@ -77,6 +84,7 @@ namespace BlackjackW36
                 // Sets the points to 0 for a new round
                 playerPoints = 0;
             }
+
             void Hit()
             {
                 // Receive a card if player chooses to hit
@@ -90,6 +98,7 @@ namespace BlackjackW36
                 // Print only if player chooses to stand
                 Console.WriteLine("You finished with {0} points.", playerPoints);
             }
+
             bool CheckWinCondition()
             {
                 // Functions returns true if player has met a win condition
@@ -113,6 +122,7 @@ namespace BlackjackW36
 
                 return false;
             }
+
             int GetCardValue(int number)
             {
                 // Get the value of a card in a Blackjack game based on the number of the card
@@ -147,6 +157,7 @@ namespace BlackjackW36
             {
 
             }
+
             public void AddCardSetToDeck()
             {
                 // For each suit create one card for each number
@@ -163,6 +174,12 @@ namespace BlackjackW36
                 // Clears the deck list
                 deck.Clear();
             }
+            public int GetNumCardsInDeck()
+            {
+                // Returns the amount of cards in the deck
+                return deck.Count();
+            }
+
             public Card DrawRandomCard()
             {
                 // Take and return a random card from the deck
@@ -171,11 +188,6 @@ namespace BlackjackW36
                 Card card = deck[cardPos];
                 deck.RemoveAt(cardPos);
                 return card;
-            }
-            public int GetNumCardsInDeck()
-            {
-                // Returns the amount of cards in the deck
-                return deck.Count();
             }
         }
         class Card
@@ -188,6 +200,7 @@ namespace BlackjackW36
                 suit = cardSuit;
                 number = cardNumber;
             }
+
             string GetSuitName()
             {
                 // Returns the name of the suit based on the number of the card suit
