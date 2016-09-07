@@ -10,6 +10,72 @@ namespace BlackjackW36
     {
         static Random RNG = new Random();
 
+        class Blackjack
+        {
+            Deck deck = new Deck();
+            int playerPoints;
+            int cardSetsInDeck = 2;
+
+            public Blackjack()
+            {
+            }
+
+            void PlayGame()
+            {
+                // Play until no cards remain
+                while (deck.GetNumCardsInDeck() > 0)
+                {
+                    Console.WriteLine("Write \"Y\" to be hit with a card. \"N\" to stand and start a new round.");
+                    string command = Console.ReadLine();
+                    switch (command)
+                    {
+                        case "Y":
+                            Hit();
+                            Console.WriteLine("Points: {0}", playerPoints);
+                            break;
+                        case "N":
+                            Stand();
+                            NewRound();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                Console.WriteLine("No cards remaining; game is over.");
+            }
+            public void NewGame()
+            {
+                // Set up the deck
+                deck.ClearDeck();
+                for (int set = 0; set < cardSetsInDeck; set++)
+                {
+                    deck.AddCardSetToDeck();
+                }
+
+                // Set up the round
+                NewRound();
+
+                // Play
+                PlayGame();
+            }
+            void NewRound()
+            {
+                playerPoints = 0;
+            }
+            void Hit()
+            {
+                Card card = deck.DrawRandomCard();
+                playerPoints += card.number;
+
+                Console.WriteLine("You were hit by the {0}.", card.GetCardName());
+            }
+            void Stand()
+            {
+                Console.WriteLine("You finished with {0} points.", playerPoints);
+            }
+
+        }
         class Deck
         {
             List<Card> deck = new List<Card>();
@@ -21,7 +87,7 @@ namespace BlackjackW36
             {
 
             }
-            public void AddCardsToDeck()
+            public void AddCardSetToDeck()
             {
                 // For each suit create one card for each number
                 for (int suit = 0; suit < suits; suit++)
@@ -44,6 +110,10 @@ namespace BlackjackW36
                 deck.RemoveAt(cardPos);
                 return card;
             }
+            public int GetNumCardsInDeck()
+            {
+                return deck.Count();
+            }
         }
         class Card
         {
@@ -55,10 +125,51 @@ namespace BlackjackW36
                 suit = cardSuit;
                 number = cardNumber;
             }
+            string GetSuitName()
+            {
+                // Get the name of the suit based on the number of the card suit
+                switch (suit)
+                {
+                    case 0:
+                        return "Hearts";
+                    case 1:
+                        return "Diamonds";
+                    case 2:
+                        return "Spades";
+                    case 3:
+                        return "Clubs";
+                    default:
+                        return string.Empty;
+                }
+            }
+            string GetNumberName()
+            {
+                // Get the name of the number on the card
+                switch (number)
+                {
+                    case 1:
+                        return "Ace";
+                    case 11:
+                        return "Jack";
+                    case 12:
+                        return "Queen";
+                    case 13:
+                        return "King";
+                    default:
+                        return number.ToString();
+                }
+            }
+            public string GetCardName()
+            {
+                return string.Format("{0} of {1}", GetNumberName(), GetSuitName());
+            }
         }
 
         static void Main(string[] args)
         {
+            Blackjack Game = new Blackjack();
+
+            Game.NewGame();
         }
     }
 }
