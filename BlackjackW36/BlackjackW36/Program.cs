@@ -35,7 +35,7 @@ namespace BlackjackW36
                             if (CheckWinCondition())
                             {
                                 Console.WriteLine("You won!");
-                                StopGame();
+                                return;
                             }
                             else if (CheckLooseCondition())
                             {
@@ -52,11 +52,7 @@ namespace BlackjackW36
                     }
                 }
 
-                Console.WriteLine("No cards remaining; game is over.");
-            }
-            void StopGame()
-            {
-                deck.ClearDeck();
+                Console.WriteLine("No cards remaining.");
             }
             public void NewGame()
             {
@@ -80,7 +76,7 @@ namespace BlackjackW36
             void Hit()
             {
                 Card card = deck.DrawRandomCard();
-                playerPoints += card.number;
+                playerPoints += GetCardValue(card.number);
 
                 Console.WriteLine("You were hit by the {0}.", card.GetCardName());
             }
@@ -106,6 +102,27 @@ namespace BlackjackW36
                 }
 
                 return false;
+            }
+            int GetCardValue(int number)
+            {
+
+                if (number == 1)
+                {
+                    if (playerPoints + 11 > 21)
+                    {
+                        return 1;
+                    }
+
+                    return 11;
+                }
+                else if (number > 10 && number <= 13)
+                {
+                    return 10;
+                }
+                else
+                {
+                    return number;
+                }
             }
 
         }
