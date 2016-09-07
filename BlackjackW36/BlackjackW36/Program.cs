@@ -22,7 +22,7 @@ namespace BlackjackW36
 
             void PlayGame()
             {
-                // Play until no cards remain
+                // Play until no cards remain or win condition has been met
                 while (deck.GetNumCardsInDeck() > 0)
                 {
                     Console.WriteLine("Write \"Y\" to be hit with a card. \"N\" to stand and start a new round.");
@@ -32,6 +32,8 @@ namespace BlackjackW36
                         case "Y":
                             Hit();
                             Console.WriteLine("Points: {0}", playerPoints);
+
+                            // Check for win or loose condition after a hit
                             if (CheckWinCondition())
                             {
                                 Console.WriteLine("You won!");
@@ -42,6 +44,7 @@ namespace BlackjackW36
                                 Console.WriteLine("Your points exceeded 21. You lost!");
                                 NewRound();
                             }
+
                             break;
                         case "N":
                             Stand();
@@ -71,10 +74,12 @@ namespace BlackjackW36
             }
             void NewRound()
             {
+                // Sets the points to 0 for a new round
                 playerPoints = 0;
             }
             void Hit()
             {
+                // Receive a card if player chooses to hit
                 Card card = deck.DrawRandomCard();
                 playerPoints += GetCardValue(card.number);
 
@@ -82,10 +87,13 @@ namespace BlackjackW36
             }
             void Stand()
             {
+                // Print only if player chooses to stand
                 Console.WriteLine("You finished with {0} points.", playerPoints);
             }
             bool CheckWinCondition()
             {
+                // Functions returns true if player has met a win condition
+                // Function is currently largely useless but may be worth it for future implementations of more win conditions
                 switch (playerPoints)
                 {
                     case 21:
@@ -96,6 +104,8 @@ namespace BlackjackW36
             }
             bool CheckLooseCondition()
             {
+                // Functions returns true if player has met a loose condition
+                // Function is currently largely useless but may be worth it for future implementations of more loose conditions
                 if (playerPoints > 21)
                 {
                     return true;
@@ -105,7 +115,7 @@ namespace BlackjackW36
             }
             int GetCardValue(int number)
             {
-
+                // Get the value of a card in a Blackjack game based on the number of the card
                 if (number == 1)
                 {
                     if (playerPoints + 11 > 21)
@@ -150,11 +160,13 @@ namespace BlackjackW36
             }
             public void ClearDeck()
             {
+                // Clears the deck list
                 deck.Clear();
             }
             public Card DrawRandomCard()
             {
-                // Take a random card from the deck
+                // Take and return a random card from the deck
+                // The taken card is removed from the deck
                 int cardPos = RNG.Next(0, deck.Count);
                 Card card = deck[cardPos];
                 deck.RemoveAt(cardPos);
@@ -162,6 +174,7 @@ namespace BlackjackW36
             }
             public int GetNumCardsInDeck()
             {
+                // Returns the amount of cards in the deck
                 return deck.Count();
             }
         }
@@ -177,7 +190,7 @@ namespace BlackjackW36
             }
             string GetSuitName()
             {
-                // Get the name of the suit based on the number of the card suit
+                // Returns the name of the suit based on the number of the card suit
                 switch (suit)
                 {
                     case 0:
@@ -194,7 +207,7 @@ namespace BlackjackW36
             }
             string GetNumberName()
             {
-                // Get the name of the number on the card
+                // Returns the name of the number on the card
                 switch (number)
                 {
                     case 1:
@@ -211,14 +224,17 @@ namespace BlackjackW36
             }
             public string GetCardName()
             {
+                // Returns the name of the card
                 return string.Format("{0} of {1}", GetNumberName(), GetSuitName());
             }
         }
 
         static void Main(string[] args)
         {
+            // Create blackjack game
             Blackjack Game = new Blackjack();
 
+            // Start a new game
             Game.NewGame();
         }
     }
