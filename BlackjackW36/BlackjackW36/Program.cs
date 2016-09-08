@@ -8,26 +8,13 @@ namespace BlackjackW36
 {
     class Program
     {
-
-        /*
-         *      Possible GOLD PLATING feature(s):
-         *          - Ask if player wants to continue the game after it has run
-         * 
-         *      UPCOMMING CHANGES, AND PERSONAL PROJECT:
-         *          - Change the deck's card list to public and remove unneccesary functions
-         *              - Good for better access to the decks for card games that require more control of decks/hands/boards etc
-         *          - Create a score system which counts the worth of a 'hand' using taking a list of cards and a maximum number of cards used as parameters.
-         *          - Return the score in the format ScoreType (flush/straight/two pairs) and TypeScore (number of highest card, etc)
-         * 
-         */
-
         // Random Number Generator
         static Random RNG = new Random();
 
         /// <summary>
-        /// Simulates a the card game Blackjack with similar rules
+        /// Class with built-in functions able to simulate the card game Blackjack
         /// </summary>
-        public class Blackjack
+        public class BlackjackSimulator
         {
             // Game variables
             Deck deck = new Deck();
@@ -38,12 +25,15 @@ namespace BlackjackW36
             int playerPoints = 0;
             int dealerPoints = 0;
 
-            public Blackjack() {}
-
-            void Hit() { }
-            void Stand() { }
+            /// <summary>
+            /// Initialize and instance of the BlackjackSimulator class with built-in functions able to simulate the card game Blackjack
+            /// </summary>
+            public BlackjackSimulator() { }
 
             // Game functions
+            /// <summary>
+            /// Initialize the deck and set game variables to the default values
+            /// </summary>
             void NewGame()
             {
                 //
@@ -53,18 +43,19 @@ namespace BlackjackW36
                 deck.cards.Clear();
                 deck.AddCardSetsToDeck(cardSets);
             }
+            /// <summary>
+            /// Plays the Blackjack simulation
+            /// </summary>
             public void Play()
             {
-                bool read = true;
-
-                while (read)
+                while (true)
                 {
                     NewGame();
 
                     while (deck.cards.Count() > 15)
                     {
                         Console.WriteLine("Another round? (y/n)\n Cards remaining: {0}", deck.cards.Count());
-                        read = ReadYesOrNo();
+                        bool read = ReadYesOrNo();
 
                         if (read)
                         {
@@ -76,30 +67,32 @@ namespace BlackjackW36
                         }
                     }
 
-                    Console.WriteLine("Almost out of cards. Do you want to play a new game?");
-                    read = ReadYesOrNo();
                 }
             }
 
             // Round functions
+            /// <summary>
+            /// Plays one round according to Blackjack rules
+            /// </summary>
             void PlayRound()
             {
-                bool read = true;
+                // Read init
+                bool hit = true;
 
-                // Points
+                // Points init
                 playerPoints = 0;
                 dealerPoints = 0;
 
-
+                // Board init
                 Console.Clear();
                 Hit("Dealer");
                 Display();
 
-                while (read && playerPoints < 21)
+                while (hit && playerPoints < 21)
                 {
                     Console.WriteLine("Hit (y) or Stand (n)?");
-                    read = ReadYesOrNo();
-                    if (read)
+                    hit = ReadYesOrNo();
+                    if (hit)
                     {
                         Console.Clear();
                         Hit("Player");
@@ -107,7 +100,7 @@ namespace BlackjackW36
                     }
                 }
 
-                if (!read)
+                if (!hit)
                 {
                     Console.Clear();
                     while (dealerPoints < playerPoints)
@@ -117,10 +110,13 @@ namespace BlackjackW36
                     Display();
                 }
 
-                FinishRound();
+                SetRoundWinner();
 
             }
-            void FinishRound()
+            /// <summary>
+            /// Determines the winner of the round and changes the score accordingly
+            /// </summary>
+            void SetRoundWinner()
             {
                 // Decide winner
                 string winner;
@@ -156,7 +152,10 @@ namespace BlackjackW36
                 Console.Clear();
             }
 
-            // Hit
+            /// <summary>
+            /// Give the target a card and add it to their round points
+            /// </summary>
+            /// <param name="target">A string variable representing the target of the hit, can either be Player or Dealer</param>
             void Hit(string target)
             {
                 Card card = deck.DrawRandomCard();
@@ -176,12 +175,20 @@ namespace BlackjackW36
 
             }
 
-            // Display
+            /// <summary>
+            /// Displays the game score and the round points of both the player and the dealer
+            /// </summary>
             void Display()
             {
                 Console.WriteLine("\nPlayer score: {0}\nPlayer points: {1}\nDealer points: {2}", score, playerPoints, dealerPoints);
             }
 
+            /// <summary>
+            /// Get the value of a card according to the Blackjack rules
+            /// </summary>
+            /// <param name="number">An integer value representing the number of the card</param>
+            /// <param name="points">An integer value representing the number of round points of the target player</param>
+            /// <returns></returns>
             int GetCardValue(int number, int points)
             {
                 if (number == 1 && points <= 10)
@@ -277,7 +284,7 @@ namespace BlackjackW36
         }
 
         /// <summary>
-        /// Holds the suit and numeric value of a card and relevant card functinos
+        /// Represents a playing card
         /// </summary>
         public class Card
         {
@@ -347,7 +354,7 @@ namespace BlackjackW36
 
         static void Main(string[] args)
         {
-            Blackjack blackjack = new Blackjack();
+            BlackjackSimulator blackjack = new BlackjackSimulator();
 
             blackjack.Play();
         }
