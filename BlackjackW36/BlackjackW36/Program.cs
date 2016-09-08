@@ -240,33 +240,6 @@ namespace BlackjackW36
                 }
             }
 
-            /*
-            /// <summary>
-            /// Removes all cards from the deck
-            /// </summary>
-            public void ClearDeck()
-            {
-                // Clears the cards list
-                cards.Clear();
-            }
-            /// <summary>
-            /// Get the number of cards in the deck
-            /// </summary>
-            /// <returns>Returns an integer containing the number of cards in the deck</returns>
-            public int GetNumCards()
-            {
-                return cards.Count();
-            }
-            /// <summary>
-            /// Adds the card to the deck
-            /// </summary>
-            /// <param name="card">The card to be added</param>
-            public void AddCard(Card card)
-            {
-                cards.Add(card);
-            }
-            */
-
             /// <summary>
             /// Take a card at a random position in the deck and remove it from the deck
             /// </summary>
