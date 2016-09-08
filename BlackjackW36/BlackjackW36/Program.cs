@@ -13,177 +13,199 @@ namespace BlackjackW36
          *      Possible GOLD PLATING feature(s):
          *          - Ask if player wants to continue the game after it has run
          * 
+         *      UPCOMMING CHANGES, AND PERSONAL PROJECT:
+         *          - Change the deck's card list to public and remove unneccesary functions
+         *              - Good for better access to the decks for card games that require more control of decks/hands/boards etc
+         *          - Create a score system which counts the worth of a 'hand' using taking a list of cards and a maximum number of cards used as parameters.
+         *          - Return the score in the format ScoreType (flush/straight/two pairs) and TypeScore (number of highest card, etc)
+         * 
          */
 
         // Random Number Generator
         static Random RNG = new Random();
 
         /// <summary>
-        /// Holds values and functions that are able to simulate the card game Blackjack
+        /// Simulates a the card game Blackjack with similar rules
         /// </summary>
         public class Blackjack
         {
+            // Game variables
             Deck deck = new Deck();
-            int playerPoints;
-            int cardSetsInDeck = 2;
+            int cardSets = 4;
 
-            /// <summary>
-            /// Initialize an instance of the Blackjack class which simulates the Blackjack card game
-            /// </summary>
-            public Blackjack() { }
+            // Scores & Points
+            int score = 0;
+            int playerPoints = 0;
+            int dealerPoints = 0;
 
-            /// <summary>
-            /// Game will play until no cards remain or a win condition has been met
-            /// </summary>
-            void PlayGame()
+            public Blackjack() {}
+
+            void Hit() { }
+            void Stand() { }
+
+            // Game functions
+            void NewGame()
             {
-                // Play until no cards remain or win condition has been met
-                while (deck.GetNumCardsInDeck() > 0)
+                //
+                score = 0;
+
+                //
+                deck.cards.Clear();
+                deck.AddCardSetsToDeck(cardSets);
+            }
+            public void Play()
+            {
+                bool read = true;
+
+                while (read)
                 {
-                    Console.WriteLine("Write \"Y\" to be hit with a card. \"N\" to stand and start a new round.");
-                    string command = Console.ReadLine();
-                    switch (command)
+                    NewGame();
+
+                    while (deck.cards.Count() > 15)
                     {
-                        case "Y":
-                            Hit();
-                            Console.WriteLine("Points: {0}", playerPoints);
+                        Console.WriteLine("Another round? (y/n)\n Cards remaining: {0}", deck.cards.Count());
+                        read = ReadYesOrNo();
 
-                            // Check for win or loose condition after a hit
-                            if (CheckWinCondition())
-                            {
-                                Console.WriteLine("You won!");
-                                return;
-                            }
-                            else if (CheckLooseCondition())
-                            {
-                                Console.WriteLine("Your points exceeded 21. You lost!");
-                                NewRound();
-                            }
+                        if (read)
+                        {
+                            PlayRound();
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
 
-                            break;
-                        case "N":
-                            Stand();
-                            NewRound();
-                            break;
-                        default:
-                            break;
+                    Console.WriteLine("Almost out of cards. Do you want to play a new game?");
+                    read = ReadYesOrNo();
+                }
+            }
+
+            // Round functions
+            void PlayRound()
+            {
+                bool read = true;
+
+                // Points
+                playerPoints = 0;
+                dealerPoints = 0;
+
+
+                Console.Clear();
+                Hit("Dealer");
+                Display();
+
+                while (read && playerPoints < 21)
+                {
+                    Console.WriteLine("Hit (y) or Stand (n)?");
+                    read = ReadYesOrNo();
+                    if (read)
+                    {
+                        Console.Clear();
+                        Hit("Player");
+                        Display();
                     }
                 }
 
-                Console.WriteLine("No cards remaining.");
-            }
-            /// <summary>
-            /// Start a new Blackjack game, recreating the deck and start playing
-            /// </summary>
-            public void NewGame()
-            {
-                // Set up the deck
-                deck.ClearDeck();
-                for (int set = 0; set < cardSetsInDeck; set++)
+                if (!read)
                 {
-                    deck.AddCardSetToDeck();
+                    Console.Clear();
+                    while (dealerPoints < playerPoints)
+                    {
+                        Hit("Dealer");
+                    }
+                    Display();
                 }
 
-                // Set up the round
-                NewRound();
+                FinishRound();
 
-                // Play
-                PlayGame();
             }
-            /// <summary>
-            /// Start a new Blackjack round, resetting the score to zero
-            /// </summary>
-            void NewRound()
+            void FinishRound()
             {
-                // Sets the points to 0 for a new round
-                playerPoints = 0;
-            }
+                // Decide winner
+                string winner;
 
-            /// <summary>
-            /// Executes everything which should happen if the player chooses to hit
-            /// </summary>
-            void Hit()
-            {
-                // Receive a card if player chooses to hit
-                Card card = deck.DrawRandomCard();
-                playerPoints += GetCardValue(card.number);
-
-                Console.WriteLine("You were hit by the {0}.", card.GetCardName());
-            }
-            /// <summary>
-            /// Executes everything which should happen if the player chooses to stand
-            /// </summary>
-            void Stand()
-            {
-                // Print only if player chooses to stand
-                Console.WriteLine("You finished with {0} points.", playerPoints);
-            }
-
-            /// <summary>
-            /// Checks if any win condition has been met, returns true if one condition was met
-            /// </summary>
-            /// <returns>Returns a boolean with the result</returns>
-            bool CheckWinCondition()
-            {
-                // Function is currently largely useless but may be worth it for future implementations of more win conditions
-                switch (playerPoints)
-                {
-                    case 21:
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-            /// <summary>
-            /// Checks if any loose condition has been met, returns true if one condition was met
-            /// </summary>
-            /// <returns>Returns a boolean with the result</returns>
-            bool CheckLooseCondition()
-            {
-                // Function is currently largely useless but may be worth it for future implementations of more loose conditions
                 if (playerPoints > 21)
                 {
-                    return true;
+                    winner = "Dealer";
+                    score--;
                 }
-
-                return false;
-            }
-
-            /// <summary>
-            /// Get the point value of a card number in the blackjack game
-            /// </summary>
-            /// <param name="number">The card number</param>
-            /// <returns>Returns an integer containing the point value of the card</returns>
-            int GetCardValue(int number)
-            {
-                // Get the value of a card in a Blackjack game based on the number of the card
-                if (number == 1)
+                else if (playerPoints == 21)
                 {
-                    if (playerPoints + 11 > 21)
-                    {
-                        return 1;
-                    }
-
-                    return 11;
+                    winner = "Player";
+                    score += 3;
                 }
-                else if (number > 10 && number <= 13)
+                else if (playerPoints > dealerPoints)
                 {
-                    return 10;
+                    winner = "Player";
+                    score++;
+                }
+                else if (dealerPoints > 21)
+                {
+                    winner = "Player";
+                    score++;
                 }
                 else
                 {
-                    return number;
+                    winner = "Dealer";
+                    score--;
                 }
+
+                Console.WriteLine("{0} won!", winner);
+                Console.ReadKey();
+                Console.Clear();
             }
 
+            // Hit
+            void Hit(string target)
+            {
+                Card card = deck.DrawRandomCard();
+                Console.WriteLine("{0} drew the {1}", target, card.GetCardName());
+
+                switch (target)
+                {
+                    case "Player":
+                        playerPoints += GetCardValue(card.number, playerPoints);
+                        break;
+                    case "Dealer":
+                        dealerPoints += GetCardValue(card.number, dealerPoints);
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+            // Display
+            void Display()
+            {
+                Console.WriteLine("\nPlayer score: {0}\nPlayer points: {1}\nDealer points: {2}", score, playerPoints, dealerPoints);
+            }
+
+            int GetCardValue(int number, int points)
+            {
+                if (number == 1 && points <= 10)
+                {
+                    return 11;
+                }
+                else if (number > 10)
+                {
+                    return 10;
+                }
+
+                return number;
+            }
         }
 
         /// <summary>
-        /// Holds a list of cards and relevant deck functions
+        /// Simulates the functionalities of a real-life card deck, holds a list of cards and relevant deck functions
         /// </summary>
         public class Deck
         {
-            List<Card> deck = new List<Card>();
+            /* Note: The list is NOT public, meaning only the class has access to the functions that may be useful
+             * to the program, therefore have created functions which return or change the list privately.
+             * This is, however, largely ineffective and am contemplating simply making the deck public. */
+            public List<Card> cards = new List<Card>();
             int suits = 4;
             int minCardNumber = 1;
             int maxCardNumber = 13;
@@ -196,33 +218,47 @@ namespace BlackjackW36
             /// <summary>
             /// Add cards of all four suits from, and including, the number 1 to, and including, the number 13
             /// </summary>
-            public void AddCardSetToDeck()
+            public void AddCardSetsToDeck(int sets)
             {
                 // For each suit create one card for each number
                 for (int suit = 0; suit < suits; suit++)
                 {
                     for (int number = minCardNumber; number <= maxCardNumber; number++)
                     {
-                        deck.Add(new Card(suit, number));
+                        for (int set = 0; set < sets; set++)
+                        {
+                            cards.Add(new Card(suit, number));
+                        }
                     }
                 }
             }
+
+            /*
             /// <summary>
             /// Removes all cards from the deck
             /// </summary>
             public void ClearDeck()
             {
-                // Clears the deck list
-                deck.Clear();
+                // Clears the cards list
+                cards.Clear();
             }
             /// <summary>
             /// Get the number of cards in the deck
             /// </summary>
             /// <returns>Returns an integer containing the number of cards in the deck</returns>
-            public int GetNumCardsInDeck()
+            public int GetNumCards()
             {
-                return deck.Count();
+                return cards.Count();
             }
+            /// <summary>
+            /// Adds the card to the deck
+            /// </summary>
+            /// <param name="card">The card to be added</param>
+            public void AddCard(Card card)
+            {
+                cards.Add(card);
+            }
+            */
 
             /// <summary>
             /// Take a card at a random position in the deck and remove it from the deck
@@ -232,9 +268,10 @@ namespace BlackjackW36
             /// </returns>
             public Card DrawRandomCard()
             {
-                int cardPos = RNG.Next(0, deck.Count);
-                Card card = deck[cardPos];
-                deck.RemoveAt(cardPos);
+                // Through this function the deck is able to simulate a 'shuffled' deck by always taking a random card from the list
+                int cardPos = RNG.Next(0, cards.Count);
+                Card card = cards[cardPos];
+                cards.RemoveAt(cardPos);
                 return card;
             }
         }
@@ -252,10 +289,10 @@ namespace BlackjackW36
             /// </summary>
             /// <param name="cardSuit">An integer representing the suit of the card.</param>
             /// <param name="cardNumber">An integer representing the numeric value of the card.</param>
-            public Card(int cardSuit, int cardNumber)
+            public Card(int suit, int number)
             {
-                suit = cardSuit;
-                number = cardNumber;
+                this.suit = suit;
+                this.number = number;
             }
 
             /// <summary>
@@ -310,11 +347,25 @@ namespace BlackjackW36
 
         static void Main(string[] args)
         {
-            // Create blackjack game
-            Blackjack BlackjackGame = new Blackjack();
+            Blackjack blackjack = new Blackjack();
 
-            // Start a new game
-            BlackjackGame.NewGame();
+            blackjack.Play();
+        }
+        static bool ReadYesOrNo()
+        {
+            while (true)
+            {
+                ConsoleKeyInfo key = Console.ReadKey();
+                switch (key.KeyChar)
+                {
+                    case 'y':
+                        return true;
+                    case 'n':
+                        return false;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
