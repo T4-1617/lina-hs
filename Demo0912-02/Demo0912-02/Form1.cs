@@ -79,7 +79,7 @@ namespace Demo0912_02
 
             int index = lbCustomers.SelectedIndex;
             Customer c = customers[index];
-            string CustomerInfo = string.Format("Customer ID: {0}\nFirst name: {1}\nLast name: {2}\nActive: {3}", c.ID, c.FirstName, c.LastName, c.Active);
+            string CustomerInfo = string.Format("C.ID: {0}\nF.Name: {1}\nL.Name: {2}\nActive: {3}", c.ID, c.FirstName, c.LastName, c.Active);
             MessageBox.Show(CustomerInfo);
 
         }
