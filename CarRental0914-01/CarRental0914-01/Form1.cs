@@ -14,20 +14,16 @@ namespace CarRental0914_01
     {
         bool isEditing;
 
-        // Bug: The property of the car the listbox points to DOES change
-        // The listbox does not change and refresh() does not seem to work.
-        // Temporary work around, the RegNO of the car appears instead.
-
         public Form1()
         {
             InitializeComponent();
 
             //// Listbox
-            lstCars.DisplayMember = "RegNO";
+            lstCars.DisplayMember = "make";
             // Create 5 DEMO cars and add to listbox
             for (int i = 0; i < 5; i++)
             {
-                Car car = new Car() { RegNO = i.ToString() };
+                Car car = new Car() { make = string.Format("DemoMake{0}", i.ToString()) };
                 lstCars.Items.Add(car);
             }
 
@@ -35,6 +31,7 @@ namespace CarRental0914_01
             pnlCarInfo.Visible = false;
             // Panel textboxes
             EditCarInfo(false);
+            txtMake.ReadOnly = true;
             txtRegNO.ReadOnly = true;
             txtHired.ReadOnly = true;
         }
@@ -43,8 +40,10 @@ namespace CarRental0914_01
         {
             isEditing = canEdit;
 
-            txtMake.ReadOnly = !canEdit;
             txtGroup.ReadOnly = !canEdit;
+
+            btnEdit.Enabled = !canEdit;
+            btnSave.Enabled = canEdit;
         }
 
         // Controller functions
@@ -67,7 +66,7 @@ namespace CarRental0914_01
         private void btnEdit_Click(object sender, EventArgs e)
         {
             // Enable editing
-            EditCarInfo(!isEditing);
+            EditCarInfo(true);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -79,7 +78,6 @@ namespace CarRental0914_01
             car.group = txtGroup.Text;
 
             // Disable editing and panel
-            EditCarInfo(false);
             pnlCarInfo.Visible = false;
         }
 
