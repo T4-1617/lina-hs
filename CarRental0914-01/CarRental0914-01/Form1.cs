@@ -14,15 +14,16 @@ namespace CarRental0914_01
     {
         bool isEditing;
 
-        // Bug: listbox does not update when the make changes
-        // The property of the car the listbox points to DOES change
+        // Bug: The property of the car the listbox points to DOES change
+        // The listbox does not change and refresh() does not seem to work.
+        // Temporary work around, the RegNO of the car appears instead.
 
         public Form1()
         {
             InitializeComponent();
 
             // Listbox
-            lstCars.DisplayMember = "make";
+            lstCars.DisplayMember = "RegNO";
             // Create 5 DEMO cars and add to listbox
             for (int i = 0; i < 5; i++)
             {
@@ -35,6 +36,7 @@ namespace CarRental0914_01
             // Panel textboxes
             EditCarInfo(false);
             txtRegNO.ReadOnly = true;
+            txtHired.ReadOnly = true;
         }
 
         private void EditCarInfo(bool canEdit)
@@ -42,7 +44,6 @@ namespace CarRental0914_01
             isEditing = canEdit;
 
             txtMake.ReadOnly = !canEdit;
-            txtHired.ReadOnly = !canEdit;
             txtGroup.ReadOnly = !canEdit;
         }
 
@@ -75,7 +76,6 @@ namespace CarRental0914_01
 
             EditCarInfo(false);
             pnlCarInfo.Visible = false;
-            lstCars.Refresh();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
