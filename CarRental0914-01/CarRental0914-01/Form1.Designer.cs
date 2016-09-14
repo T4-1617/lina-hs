@@ -32,12 +32,15 @@
             this.pnlCarInfo = new System.Windows.Forms.Panel();
             this.lblRegNO = new System.Windows.Forms.Label();
             this.lblHired = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblGroup = new System.Windows.Forms.Label();
             this.txtRegNO = new System.Windows.Forms.TextBox();
             this.txtHired = new System.Windows.Forms.TextBox();
             this.txtGroup = new System.Windows.Forms.TextBox();
             this.lblMake = new System.Windows.Forms.Label();
             this.txtMake = new System.Windows.Forms.TextBox();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.pnlCarInfo.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,12 +55,15 @@
             // 
             // pnlCarInfo
             // 
+            this.pnlCarInfo.Controls.Add(this.btnCancel);
+            this.pnlCarInfo.Controls.Add(this.btnSave);
+            this.pnlCarInfo.Controls.Add(this.btnEdit);
             this.pnlCarInfo.Controls.Add(this.txtMake);
             this.pnlCarInfo.Controls.Add(this.lblMake);
             this.pnlCarInfo.Controls.Add(this.txtGroup);
             this.pnlCarInfo.Controls.Add(this.txtHired);
             this.pnlCarInfo.Controls.Add(this.txtRegNO);
-            this.pnlCarInfo.Controls.Add(this.label1);
+            this.pnlCarInfo.Controls.Add(this.lblGroup);
             this.pnlCarInfo.Controls.Add(this.lblHired);
             this.pnlCarInfo.Controls.Add(this.lblRegNO);
             this.pnlCarInfo.Location = new System.Drawing.Point(260, 47);
@@ -85,15 +91,15 @@
             this.lblHired.TabIndex = 2;
             this.lblHired.Text = "Hired:";
             // 
-            // label1
+            // lblGroup
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(71, 133);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 17);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Group:";
+            this.lblGroup.AutoSize = true;
+            this.lblGroup.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGroup.Location = new System.Drawing.Point(71, 133);
+            this.lblGroup.Name = "lblGroup";
+            this.lblGroup.Size = new System.Drawing.Size(52, 17);
+            this.lblGroup.TabIndex = 3;
+            this.lblGroup.Text = "Group:";
             // 
             // txtRegNO
             // 
@@ -133,6 +139,36 @@
             this.txtMake.Size = new System.Drawing.Size(100, 20);
             this.txtMake.TabIndex = 8;
             // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(74, 223);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(109, 46);
+            this.btnEdit.TabIndex = 9;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(189, 223);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(109, 46);
+            this.btnSave.TabIndex = 10;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(304, 223);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(109, 46);
+            this.btnCancel.TabIndex = 11;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,12 +190,15 @@
         private System.Windows.Forms.Panel pnlCarInfo;
         private System.Windows.Forms.Label lblRegNO;
         private System.Windows.Forms.Label lblHired;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblGroup;
         private System.Windows.Forms.TextBox txtGroup;
         private System.Windows.Forms.TextBox txtHired;
         private System.Windows.Forms.TextBox txtRegNO;
         private System.Windows.Forms.TextBox txtMake;
         private System.Windows.Forms.Label lblMake;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnEdit;
     }
 }
 
