@@ -15,6 +15,16 @@ namespace CarRental0914_01
         public Form1()
         {
             InitializeComponent();
+
+            // Listbox
+            lstCars.DisplayMember = "make";
+            // Create 5 DEMO cars and add to listbox
+            for (int i = 0; i < 5; i++)
+            {
+                Car car = new Car();
+                lstCars.Items.Add(car);
+            }
+
         }
     }
 }
