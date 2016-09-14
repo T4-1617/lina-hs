@@ -74,7 +74,6 @@ namespace CarRental0914_01
             // Give the car its new values
             Car car = (Car)lstCars.SelectedItem;
 
-            car.make = txtMake.Text;
             car.group = txtGroup.Text;
 
             // Disable editing and panel
