@@ -9,11 +9,13 @@ namespace CarRental0914_01
 
     class Car
     {
+        // Car properties
         public string make { get; set; }
         public string RegNO { get; set; }
         public bool hired { get; set; }
         public string group { get; set; }
 
+        // Initialization
         public Car()
         {
             make = "unknown";

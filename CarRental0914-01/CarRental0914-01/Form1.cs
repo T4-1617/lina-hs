@@ -22,7 +22,7 @@ namespace CarRental0914_01
         {
             InitializeComponent();
 
-            // Listbox
+            //// Listbox
             lstCars.DisplayMember = "RegNO";
             // Create 5 DEMO cars and add to listbox
             for (int i = 0; i < 5; i++)
@@ -31,7 +31,7 @@ namespace CarRental0914_01
                 lstCars.Items.Add(car);
             }
 
-            // Panel
+            //// Panel
             pnlCarInfo.Visible = false;
             // Panel textboxes
             EditCarInfo(false);
@@ -52,6 +52,7 @@ namespace CarRental0914_01
         {
             Car car = (Car)lstCars.SelectedItem;
 
+            //// Panel
             pnlCarInfo.Visible = true;
 
             txtMake.Text = car.make;
@@ -59,27 +60,32 @@ namespace CarRental0914_01
             txtHired.Text = car.hired ? "Hired" : "Not hired";
             txtGroup.Text = car.group;
 
+            //// Disable editing
             EditCarInfo(false);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            // Enable editing
             EditCarInfo(!isEditing);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // Give the car its new values
             Car car = (Car)lstCars.SelectedItem;
 
             car.make = txtMake.Text;
             car.group = txtGroup.Text;
 
+            // Disable editing and panel
             EditCarInfo(false);
             pnlCarInfo.Visible = false;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            // Disable panel
             pnlCarInfo.Visible = false;
         }
     }
