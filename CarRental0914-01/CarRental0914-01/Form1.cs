@@ -34,5 +34,17 @@ namespace CarRental0914_01
             txtGroup.ReadOnly = true;
 
         }
+
+        private void lstCars_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Car car = (Car) lstCars.SelectedItem;
+
+            pnlCarInfo.Visible = true;
+
+            txtMake.Text = car.make;
+            txtRegNO.Text = car.RegNO;
+            txtHired.Text = car.hired ? "Hired" : "Not hired";
+            txtGroup.Text = car.group;
+        }
     }
 }

@@ -48,6 +48,7 @@
             this.lstCars.Name = "lstCars";
             this.lstCars.Size = new System.Drawing.Size(242, 290);
             this.lstCars.TabIndex = 0;
+            this.lstCars.SelectedIndexChanged += new System.EventHandler(this.lstCars_SelectedIndexChanged);
             // 
             // pnlCarInfo
             // 
