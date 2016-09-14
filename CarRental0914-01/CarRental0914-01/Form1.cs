@@ -25,6 +25,14 @@ namespace CarRental0914_01
                 lstCars.Items.Add(car);
             }
 
+            // Panel
+            pnlCarInfo.Visible = false;
+            // Panel textboxes
+            txtMake.ReadOnly = true;
+            txtRegNO.ReadOnly = true;
+            txtHired.ReadOnly = true;
+            txtGroup.ReadOnly = true;
+
         }
     }
 }
