@@ -20,12 +20,12 @@ namespace CarRental0914_01
 
             //// Listbox
             lstCars.DisplayMember = "make";
-            // Create 5 DEMO cars and add to listbox
-            for (int i = 0; i < 5; i++)
-            {
-                Car car = new Car() { make = string.Format("DemoMake{0}", i.ToString()) };
-                lstCars.Items.Add(car);
-            }
+            // Create and add 5 DEMO cars to listbox
+            lstCars.Items.Add(new Car() { make = "Volvo" });
+            lstCars.Items.Add(new Car() { make = "Volkswagen" });
+            lstCars.Items.Add(new Car() { make = "Toyota" });
+            lstCars.Items.Add(new Car() { make = "Ford" });
+            lstCars.Items.Add(new Car() { make = "Mercedes-Benz" });
 
             //// Panel
             pnlCarInfo.Visible = false;
