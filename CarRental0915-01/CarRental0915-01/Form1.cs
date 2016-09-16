@@ -163,5 +163,48 @@ namespace CarRental0915_01
             // In case no car has been selected
             MessageBox.Show("You must select a car to return.");
         }
+
+        // Add car
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+
+            bool allTextboxesHaveValues = (tbxAddMake.Text != string.Empty && tbxAddModel.Text != string.Empty && tbxAddColor.Text != string.Empty);
+
+            if (allTextboxesHaveValues)
+            {
+                // Create new car
+                Car newCar = new Car();
+                newCar.make = tbxAddMake.Text;
+                newCar.model = tbxAddModel.Text;
+                newCar.color = tbxAddColor.Text;
+
+                // Add new car to list
+                carList.Add(newCar);
+
+                // Adjust available cars
+                lstAvailableCars.Items.Add(newCar);
+                numCarsAvailable++;
+                UpdatelblCarNum();
+
+                // Clear the textboxes
+                tbxAddMake.Text = string.Empty;
+                tbxAddModel.Text = string.Empty;
+                tbxAddColor.Text = string.Empty;
+
+                // Show add message
+                string addMSG = string.Format(
+                    "A {0} {1} has been added to the ACME car list.",
+                    newCar.color,
+                    newCar.ToString());
+                MessageBox.Show(addMSG);
+
+                // Return to 'main menu'
+                pnlAddCar.Visible = false;
+                return;
+            }
+
+            MessageBox.Show("You must enter values in all textboxes!");
+
+        }
     }
 }
