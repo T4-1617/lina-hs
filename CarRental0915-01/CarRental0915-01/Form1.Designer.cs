@@ -35,7 +35,7 @@
             this.pnlRentCar = new System.Windows.Forms.Panel();
             this.lblAvailableCars = new System.Windows.Forms.Label();
             this.btnRent = new System.Windows.Forms.Button();
-            this.lstRentCars = new System.Windows.Forms.ListBox();
+            this.lstAvailableCars = new System.Windows.Forms.ListBox();
             this.pnlAddCar = new System.Windows.Forms.Panel();
             this.btnAdd = new System.Windows.Forms.Button();
             this.tbxAddColor = new System.Windows.Forms.TextBox();
@@ -97,7 +97,7 @@
             // 
             this.pnlRentCar.Controls.Add(this.lblAvailableCars);
             this.pnlRentCar.Controls.Add(this.btnRent);
-            this.pnlRentCar.Controls.Add(this.lstRentCars);
+            this.pnlRentCar.Controls.Add(this.lstAvailableCars);
             this.pnlRentCar.Location = new System.Drawing.Point(17, 133);
             this.pnlRentCar.Name = "pnlRentCar";
             this.pnlRentCar.Size = new System.Drawing.Size(632, 239);
@@ -122,13 +122,13 @@
             this.btnRent.Text = "Rent";
             this.btnRent.UseVisualStyleBackColor = true;
             // 
-            // lstRentCars
+            // lstAvailableCars
             // 
-            this.lstRentCars.FormattingEnabled = true;
-            this.lstRentCars.Location = new System.Drawing.Point(13, 38);
-            this.lstRentCars.Name = "lstRentCars";
-            this.lstRentCars.Size = new System.Drawing.Size(414, 186);
-            this.lstRentCars.TabIndex = 0;
+            this.lstAvailableCars.FormattingEnabled = true;
+            this.lstAvailableCars.Location = new System.Drawing.Point(13, 38);
+            this.lstAvailableCars.Name = "lstAvailableCars";
+            this.lstAvailableCars.Size = new System.Drawing.Size(414, 186);
+            this.lstAvailableCars.TabIndex = 0;
             // 
             // pnlAddCar
             // 
@@ -274,7 +274,7 @@
         private System.Windows.Forms.Button btnReturnCar;
         private System.Windows.Forms.Panel pnlRentCar;
         private System.Windows.Forms.Button btnRent;
-        private System.Windows.Forms.ListBox lstRentCars;
+        private System.Windows.Forms.ListBox lstAvailableCars;
         private System.Windows.Forms.Label lblAvailableCars;
         private System.Windows.Forms.Panel pnlAddCar;
         private System.Windows.Forms.Button btnAdd;

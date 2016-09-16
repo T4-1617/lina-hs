@@ -27,6 +27,20 @@ namespace CarRental0915_01
             carList.Add(new Car() { make = "Volkswagen", model = "Passat", color = "Red" });
             carList.Add(new Car() { make = "Renault", model = "Clio", color = "Blue" });
             carList.Add(new Car() { make = "Volvo", model = "V70", color = "Silver" });
+
+            // Add cars to appropriate listbox
+            foreach (Car car in carList)
+            {
+                if (car.forRent)
+                {
+                    lstAvailableCars.Items.Add(car);
+                }
+                else
+                {
+                    lstReturnCars.Items.Add(car);
+                }
+            }
+
         }
 
         // Utility functions

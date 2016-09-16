@@ -19,7 +19,12 @@ namespace CarRental0915_01
             this.make = string.Empty;
             this.model = string.Empty;
             this.color = string.Empty;
-            this.forRent = false;
+            this.forRent = true;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} {1}", make, model);
         }
 
     }
