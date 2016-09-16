@@ -12,12 +12,21 @@ namespace CarRental0915_01
 {
     public partial class CarRental : Form
     {
+
+        System.Collections.ArrayList carList;
+
         public CarRental()
         {
             InitializeComponent();
 
             // Hide Panels
             HidePanels();
+
+            // Create car list w/ demo cars
+            carList = new System.Collections.ArrayList();
+            carList.Add(new Car() { make = "Volkswagen", model = "Passat", color = "Red" });
+            carList.Add(new Car() { make = "Renault", model = "Clio", color = "Blue" });
+            carList.Add(new Car() { make = "Volvo", model = "V70", color = "Silver" });
         }
 
         // Utility functions
