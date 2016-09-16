@@ -38,9 +38,9 @@ namespace CarRental0915_01
             InitializeComponent();
 
             // Hide all panels
-            pnlRentCar.Visible = false;
-            pnlAddCar.Visible = false;
-            pnlReturnCar.Visible = false;
+            pnlRent.Visible = false;
+            pnlAdd.Visible = false;
+            pnlReturn.Visible = false;
             pnlRentThank.Visible = false;
             pnlReturnThank.Visible = false;
 
@@ -59,21 +59,21 @@ namespace CarRental0915_01
                 switch (car.rented)
                 {
                     case false:
-                        // Car is for rent
+                        // Car is available
                         lstAvailableCars.Items.Add(car);
                         numCarsAvailable++;
                         break;
                     case true:
                         // Car is rented
-                        lstReturnCars.Items.Add(car);
+                        lstRentedCars.Items.Add(car);
                         break;
                     default:
                         break;
                 }
             }
 
-            // Show available cars
-            UpdatelblCarNum();
+            // Show number of available cars
+            UpdateAvCarNum();
 
         }
 
@@ -81,9 +81,9 @@ namespace CarRental0915_01
         /// <summary>
         /// Updates the label lblCarNum to represent the current number of cars available
         /// </summary>
-        void UpdatelblCarNum()
+        void UpdateAvCarNum()
         {
-            lblCarNum.Text = string.Format("We have {0} car(s) available.", numCarsAvailable);
+            lblNumAvailableCars.Text = string.Format("We have {0} car(s) available.", numCarsAvailable);
         }
         /// <summary>
         /// Shows the panel and hides the previous panel
@@ -105,7 +105,7 @@ namespace CarRental0915_01
         /// Rent or return the car
         /// </summary>
         /// <param name="rented">Bool representing whether the car will be rentable or not.</param>
-        void ChangeCarStatus(bool rented)
+        void ChangeCarRentStatus(bool rented)
         {
             Car changedCar;
 
@@ -116,12 +116,12 @@ namespace CarRental0915_01
                     changedCar = (Car)lstAvailableCars.SelectedItem;
                     lstAvailableCars.Items.RemoveAt(lstAvailableCars.SelectedIndex);
                     numCarsAvailable--;
-                    lstReturnCars.Items.Add(changedCar);
+                    lstRentedCars.Items.Add(changedCar);
                     break;
                 case false:
                     // If car is being returned
-                    changedCar = (Car)lstReturnCars.SelectedItem;
-                    lstReturnCars.Items.RemoveAt(lstReturnCars.SelectedIndex);
+                    changedCar = (Car)lstRentedCars.SelectedItem;
+                    lstRentedCars.Items.RemoveAt(lstRentedCars.SelectedIndex);
                     lstAvailableCars.Items.Add(changedCar);
                     numCarsAvailable++;
                     break;
@@ -131,27 +131,27 @@ namespace CarRental0915_01
             }
 
             changedCar.rented = rented;
-            UpdatelblCarNum();
+            UpdateAvCarNum();
         }
 
-        //// Show panel
+        //// Show panel button clicks
         // Show rent car panel
-        private void btnRentCar_Click(object sender, EventArgs e)
+        private void btnShowRentPanel_Click(object sender, EventArgs e)
         {
-            PanelShow(pnlRentCar);
-        }
-        // Show add car panel
-        private void btnAddCar_Click(object sender, EventArgs e)
-        {
-            PanelShow(pnlAddCar);
+            PanelShow(pnlRent);
         }
         // Show return car panel
-        private void btnReturnCar_Click(object sender, EventArgs e)
+        private void btnShowReturnPanel_Click(object sender, EventArgs e)
         {
-            PanelShow(pnlReturnCar);
+            PanelShow(pnlReturn);
+        }
+        // Show add car panel
+        private void btnShowAddPanel_Click(object sender, EventArgs e)
+        {
+            PanelShow(pnlAdd);
         }
 
-        //// Program functionality
+        //// Functionality button click (rent, return and add)
         // Rent car
         private void btnRent_Click(object sender, EventArgs e)
         {
@@ -161,7 +161,7 @@ namespace CarRental0915_01
             if (index != -1)
             {
                 // Rent a car
-                ChangeCarStatus(true);
+                ChangeCarRentStatus(true);
 
                 // Show thank you panel
                 PanelShow(pnlRentThank);
@@ -176,13 +176,13 @@ namespace CarRental0915_01
         // Return car
         private void btnReturn_Click(object sender, EventArgs e)
         {
-            int index = lstReturnCars.SelectedIndex;
+            int index = lstRentedCars.SelectedIndex;
 
             // If a car has been selected
             if (index != -1)
             {
                 // Return a car
-                ChangeCarStatus(false);
+                ChangeCarRentStatus(false);
 
                 // Show thank you panel
                 PanelShow(pnlReturnThank);
@@ -214,7 +214,7 @@ namespace CarRental0915_01
                 // Adjust available cars
                 lstAvailableCars.Items.Add(newCar);
                 numCarsAvailable++;
-                UpdatelblCarNum();
+                UpdateAvCarNum();
 
                 // Clear the textboxes
                 tbxAddMake.Text = string.Empty;
