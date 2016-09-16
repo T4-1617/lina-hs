@@ -71,6 +71,7 @@
             this.btnRentCar.TabIndex = 1;
             this.btnRentCar.Text = "Rent Car";
             this.btnRentCar.UseVisualStyleBackColor = true;
+            this.btnRentCar.Click += new System.EventHandler(this.btnRentCar_Click);
             // 
             // btnAddCar
             // 
@@ -80,6 +81,7 @@
             this.btnAddCar.TabIndex = 2;
             this.btnAddCar.Text = "Add Car";
             this.btnAddCar.UseVisualStyleBackColor = true;
+            this.btnAddCar.Click += new System.EventHandler(this.btnAddCar_Click);
             // 
             // btnReturnCar
             // 
@@ -89,6 +91,7 @@
             this.btnReturnCar.TabIndex = 3;
             this.btnReturnCar.Text = "Return Car";
             this.btnReturnCar.UseVisualStyleBackColor = true;
+            this.btnReturnCar.Click += new System.EventHandler(this.btnReturnCar_Click);
             // 
             // pnlRentCar
             // 
