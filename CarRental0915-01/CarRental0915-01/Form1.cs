@@ -14,6 +14,7 @@ namespace CarRental0915_01
     {
 
         System.Collections.ArrayList carList;
+        int numCarsAvailable;
 
         public CarRental()
         {
@@ -22,24 +23,34 @@ namespace CarRental0915_01
             // Hide Panels
             HidePanels();
 
-            // Create car list w/ demo cars
+            // Create demo cars and add to car list
+            numCarsAvailable = 0;
+
             carList = new System.Collections.ArrayList();
             carList.Add(new Car() { make = "Volkswagen", model = "Passat", color = "Red" });
             carList.Add(new Car() { make = "Renault", model = "Clio", color = "Blue" });
             carList.Add(new Car() { make = "Volvo", model = "V70", color = "Silver" });
 
+
             // Add cars to appropriate listbox
             foreach (Car car in carList)
             {
-                if (car.forRent)
+                switch (car.forRent)
                 {
-                    lstAvailableCars.Items.Add(car);
-                }
-                else
-                {
-                    lstReturnCars.Items.Add(car);
+                    case true:
+                        lstAvailableCars.Items.Add(car);
+                        numCarsAvailable++;
+                        break;
+                    case false:
+                        lstReturnCars.Items.Add(car);
+                        break;
+                    default:
+                        break;
                 }
             }
+
+            // Show available cars
+            UpdatelblCarNum();
 
         }
 
@@ -50,6 +61,10 @@ namespace CarRental0915_01
             pnlRentCar.Visible = false;
             pnlAddCar.Visible = false;
             pnlReturnCar.Visible = false;
+        }
+        void UpdatelblCarNum()
+        {
+            lblCarNum.Text = string.Format("We have {0} cars available.", numCarsAvailable);
         }
 
         // Show panels
@@ -67,6 +82,44 @@ namespace CarRental0915_01
         {
             HidePanels();
             pnlReturnCar.Visible = true;
+        }
+
+        // Rent car
+        private void btnRent_Click(object sender, EventArgs e)
+        {
+            int index = lstAvailableCars.SelectedIndex;
+
+            // If a car has been selected
+            if (index != -1)
+            {
+                // Get rented car
+                Car rentCar = (Car)lstAvailableCars.SelectedItem;
+
+                // Set car to rented
+                rentCar.forRent = true;
+
+                // Remove car from available list
+                lstAvailableCars.Items.RemoveAt(index);
+                numCarsAvailable--;
+                UpdatelblCarNum();
+
+                // Add car to rented list
+                lstReturnCars.Items.Add(rentCar);
+
+                // Show rent message
+                string rentMSG = string.Format(
+                    "You rented the {0} {1}!\nThank you for using ACME services.",
+                    rentCar.color,
+                    rentCar.ToString());
+                MessageBox.Show(rentMSG);
+
+                // Return to 'main menu'
+                pnlRentCar.Visible = false;
+                return;
+            }
+
+            // In case no car has been selected
+            MessageBox.Show("You must select a car to rent.");
         }
     }
 }

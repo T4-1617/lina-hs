@@ -121,6 +121,7 @@
             this.btnRent.TabIndex = 1;
             this.btnRent.Text = "Rent";
             this.btnRent.UseVisualStyleBackColor = true;
+            this.btnRent.Click += new System.EventHandler(this.btnRent_Click);
             // 
             // lstAvailableCars
             // 
