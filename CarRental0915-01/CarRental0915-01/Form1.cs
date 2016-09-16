@@ -21,8 +21,12 @@ namespace CarRental0915_01
         {
             InitializeComponent();
 
-            // Hide Panels
-            HidePanels();
+            // Hide all panels
+            pnlRentCar.Visible = false;
+            pnlAddCar.Visible = false;
+            pnlReturnCar.Visible = false;
+            pnlRentThank.Visible = false;
+            pnlReturnThank.Visible = false;
 
             // Create demo cars and add to car list
             numCarsAvailable = 0;
@@ -36,13 +40,15 @@ namespace CarRental0915_01
             // Add cars to appropriate listbox
             foreach (Car car in carList)
             {
-                switch (car.forRent)
+                switch (car.rented)
                 {
-                    case true:
+                    case false:
+                        // Car is for rent
                         lstAvailableCars.Items.Add(car);
                         numCarsAvailable++;
                         break;
-                    case false:
+                    case true:
+                        // Car is rented
                         lstReturnCars.Items.Add(car);
                         break;
                     default:
@@ -55,35 +61,60 @@ namespace CarRental0915_01
 
         }
 
-        // Utility functions
-        void HidePanels()
-        {
-            // Hide all panels
-            pnlRentCar.Visible = false;
-            pnlAddCar.Visible = false;
-            pnlReturnCar.Visible = false;
-            pnlRentThank.Visible = false;
-            pnlReturnThank.Visible = false;
-        }
-        void HideShowPanel()
-        {
-            if (showPanel != null)
-            {
-                showPanel.Visible = false;
-            }
-        }
+        // DRY functions
+        /// <summary>
+        /// Updates the label lblCarNum to represent the current number of cars available
+        /// </summary>
         void UpdatelblCarNum()
         {
             lblCarNum.Text = string.Format("We have {0} cars available.", numCarsAvailable);
         }
+        /// <summary>
+        /// Shows the panel and hides the previous panel
+        /// </summary>
+        /// <param name="panel">The panel to be shown</param>
         void PanelShow(Panel panel)
         {
             // Hide previous panel
-            HideShowPanel();
+            if (showPanel != null)
+            {
+                showPanel.Visible = false;
+            }
 
             // Show pressed panel
             panel.Visible = true;
             showPanel = panel;
+        }
+        /// <summary>
+        /// Rent or return the car
+        /// </summary>
+        /// <param name="rented">Bool representing whether the car will be rentable or not.</param>
+        void ChangeCarStatus(bool rented)
+        {
+            Car changedCar;
+
+            switch (rented)
+            {
+                case true:
+                    // If car is being rented
+                    changedCar = (Car)lstAvailableCars.SelectedItem;
+                    lstAvailableCars.Items.RemoveAt(lstAvailableCars.SelectedIndex);
+                    numCarsAvailable--;
+                    lstReturnCars.Items.Add(changedCar);
+                    break;
+                case false:
+                    // If car is being returned
+                    changedCar = (Car)lstReturnCars.SelectedItem;
+                    lstReturnCars.Items.RemoveAt(lstReturnCars.SelectedIndex);
+                    lstAvailableCars.Items.Add(changedCar);
+                    numCarsAvailable++;
+                    break;
+                default:
+                    return;
+            }
+
+            UpdatelblCarNum();
+            changedCar.rented = rented;
         }
 
         // Show panels
@@ -108,28 +139,13 @@ namespace CarRental0915_01
             // If a car has been selected
             if (index != -1)
             {
-                // Get rented car
-                Car rentCar = (Car)lstAvailableCars.SelectedItem;
+                // Rent a car
+                ChangeCarStatus(true);
 
-                // Set car to rented
-                rentCar.forRent = true;
-
-                // Remove car from available list
-                lstAvailableCars.Items.RemoveAt(index);
-
-                // Alter number available cars
-                numCarsAvailable--;
-                UpdatelblCarNum();
-
-                // Add car to rented list
-                lstReturnCars.Items.Add(rentCar);
-
-                // Hide panel and show thank you panel
-                pnlRentCar.Visible = false;
-                pnlRentThank.Visible = true;
-                showPanel = pnlRentThank;
+                // Show thank you panel
+                PanelShow(pnlRentThank);
                 
-                // Return to 'main menu'
+                // Skip error message
                 return;
             }
 
@@ -145,28 +161,13 @@ namespace CarRental0915_01
             // If a car has been selected
             if (index != -1)
             {
-                // Get rented car
-                Car returnCar = (Car)lstReturnCars.SelectedItem;
+                // Return a car
+                ChangeCarStatus(false);
 
-                // Set car to available
-                returnCar.forRent = false;
+                // Show thank you panel
+                PanelShow(pnlReturnThank);
 
-                // Remove car from rented list
-                lstReturnCars.Items.RemoveAt(index);
-
-                // Add car to available list
-                lstAvailableCars.Items.Add(returnCar);
-
-                // Alter number available cars
-                numCarsAvailable++;
-                UpdatelblCarNum();
-
-                // Hide panel and show thank you panel
-                pnlReturnCar.Visible = false;
-                pnlReturnThank.Visible = true;
-                showPanel = pnlReturnThank;
-                
-                // Return to 'main menu'
+                // Skip error message
                 return;
             }
 

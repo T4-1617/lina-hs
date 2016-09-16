@@ -12,14 +12,14 @@ namespace CarRental0915_01
         public string make { get; set; }
         public string model { get; set; }
         public string color { get; set; }
-        public bool forRent { get; set; }
+        public bool rented { get; set; }
 
         public Car()
         {
             this.make = string.Empty;
             this.model = string.Empty;
             this.color = string.Empty;
-            this.forRent = true;
+            this.rented = false;
         }
 
         public override string ToString()
