@@ -48,9 +48,15 @@
             this.lblReturnCars = new System.Windows.Forms.Label();
             this.btnReturn = new System.Windows.Forms.Button();
             this.lstReturnCars = new System.Windows.Forms.ListBox();
+            this.pnlRentThank = new System.Windows.Forms.Panel();
+            this.lblRentThank = new System.Windows.Forms.Label();
+            this.pnlReturnThank = new System.Windows.Forms.Panel();
+            this.lblReturnThank = new System.Windows.Forms.Label();
             this.pnlRentCar.SuspendLayout();
             this.pnlAddCar.SuspendLayout();
             this.pnlReturnCar.SuspendLayout();
+            this.pnlRentThank.SuspendLayout();
+            this.pnlReturnThank.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblCarNum
@@ -244,11 +250,49 @@
             this.lstReturnCars.Size = new System.Drawing.Size(414, 186);
             this.lstReturnCars.TabIndex = 0;
             // 
+            // pnlRentThank
+            // 
+            this.pnlRentThank.Controls.Add(this.lblRentThank);
+            this.pnlRentThank.Location = new System.Drawing.Point(17, 133);
+            this.pnlRentThank.Name = "pnlRentThank";
+            this.pnlRentThank.Size = new System.Drawing.Size(632, 239);
+            this.pnlRentThank.TabIndex = 5;
+            // 
+            // lblRentThank
+            // 
+            this.lblRentThank.AutoSize = true;
+            this.lblRentThank.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRentThank.Location = new System.Drawing.Point(219, 66);
+            this.lblRentThank.Name = "lblRentThank";
+            this.lblRentThank.Size = new System.Drawing.Size(162, 20);
+            this.lblRentThank.TabIndex = 3;
+            this.lblRentThank.Text = "Thank you for renting!";
+            // 
+            // pnlReturnThank
+            // 
+            this.pnlReturnThank.Controls.Add(this.lblReturnThank);
+            this.pnlReturnThank.Location = new System.Drawing.Point(17, 133);
+            this.pnlReturnThank.Name = "pnlReturnThank";
+            this.pnlReturnThank.Size = new System.Drawing.Size(632, 239);
+            this.pnlReturnThank.TabIndex = 6;
+            // 
+            // lblReturnThank
+            // 
+            this.lblReturnThank.AutoSize = true;
+            this.lblReturnThank.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblReturnThank.Location = new System.Drawing.Point(173, 59);
+            this.lblReturnThank.Name = "lblReturnThank";
+            this.lblReturnThank.Size = new System.Drawing.Size(271, 20);
+            this.lblReturnThank.TabIndex = 3;
+            this.lblReturnThank.Text = "Thank you for using ACME car rental!";
+            // 
             // CarRental
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(661, 384);
+            this.ClientSize = new System.Drawing.Size(664, 388);
+            this.Controls.Add(this.pnlReturnThank);
+            this.Controls.Add(this.pnlRentThank);
             this.Controls.Add(this.pnlReturnCar);
             this.Controls.Add(this.pnlAddCar);
             this.Controls.Add(this.pnlRentCar);
@@ -264,6 +308,10 @@
             this.pnlAddCar.PerformLayout();
             this.pnlReturnCar.ResumeLayout(false);
             this.pnlReturnCar.PerformLayout();
+            this.pnlRentThank.ResumeLayout(false);
+            this.pnlRentThank.PerformLayout();
+            this.pnlReturnThank.ResumeLayout(false);
+            this.pnlReturnThank.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -291,6 +339,10 @@
         private System.Windows.Forms.Label lblReturnCars;
         private System.Windows.Forms.Button btnReturn;
         private System.Windows.Forms.ListBox lstReturnCars;
+        private System.Windows.Forms.Panel pnlRentThank;
+        private System.Windows.Forms.Label lblRentThank;
+        private System.Windows.Forms.Panel pnlReturnThank;
+        private System.Windows.Forms.Label lblReturnThank;
     }
 }
 

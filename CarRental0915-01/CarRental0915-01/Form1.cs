@@ -15,6 +15,7 @@ namespace CarRental0915_01
 
         System.Collections.ArrayList carList;
         int numCarsAvailable;
+        Panel showPanel;
 
         public CarRental()
         {
@@ -61,27 +62,42 @@ namespace CarRental0915_01
             pnlRentCar.Visible = false;
             pnlAddCar.Visible = false;
             pnlReturnCar.Visible = false;
+            pnlRentThank.Visible = false;
+            pnlReturnThank.Visible = false;
+        }
+        void HideShowPanel()
+        {
+            if (showPanel != null)
+            {
+                showPanel.Visible = false;
+            }
         }
         void UpdatelblCarNum()
         {
             lblCarNum.Text = string.Format("We have {0} cars available.", numCarsAvailable);
         }
+        void PanelShow(Panel panel)
+        {
+            // Hide previous panel
+            HideShowPanel();
+
+            // Show pressed panel
+            panel.Visible = true;
+            showPanel = panel;
+        }
 
         // Show panels
         private void btnRentCar_Click(object sender, EventArgs e)
         {
-            HidePanels();
-            pnlRentCar.Visible = true;
+            PanelShow(pnlRentCar);
         }
         private void btnAddCar_Click(object sender, EventArgs e)
         {
-            HidePanels();
-            pnlAddCar.Visible = true;
+            PanelShow(pnlAddCar);
         }
         private void btnReturnCar_Click(object sender, EventArgs e)
         {
-            HidePanels();
-            pnlReturnCar.Visible = true;
+            PanelShow(pnlReturnCar);
         }
 
         // Rent car
@@ -108,15 +124,12 @@ namespace CarRental0915_01
                 // Add car to rented list
                 lstReturnCars.Items.Add(rentCar);
 
-                // Show rent message
-                string rentMSG = string.Format(
-                    "You rented the {0} {1}!\nThank you for using ACME services.",
-                    rentCar.color,
-                    rentCar.ToString());
-                MessageBox.Show(rentMSG);
-
-                // Return to 'main menu'
+                // Hide panel and show thank you panel
                 pnlRentCar.Visible = false;
+                pnlRentThank.Visible = true;
+                showPanel = pnlRentThank;
+                
+                // Return to 'main menu'
                 return;
             }
 
@@ -148,15 +161,12 @@ namespace CarRental0915_01
                 numCarsAvailable++;
                 UpdatelblCarNum();
 
-                // Show rent message
-                string returnMSG = string.Format(
-                    "The {0} {1} has been successfully returned!\nThank you for using ACME services.",
-                    returnCar.color,
-                    returnCar.ToString());
-                MessageBox.Show(returnMSG);
-
-                // Return to 'main menu'
+                // Hide panel and show thank you panel
                 pnlReturnCar.Visible = false;
+                pnlReturnThank.Visible = true;
+                showPanel = pnlReturnThank;
+                
+                // Return to 'main menu'
                 return;
             }
 
@@ -191,15 +201,7 @@ namespace CarRental0915_01
                 tbxAddModel.Text = string.Empty;
                 tbxAddColor.Text = string.Empty;
 
-                // Show add message
-                string addMSG = string.Format(
-                    "A {0} {1} has been added to the ACME car list.",
-                    newCar.color,
-                    newCar.ToString());
-                MessageBox.Show(addMSG);
-
                 // Return to 'main menu'
-                pnlAddCar.Visible = false;
                 return;
             }
 
