@@ -100,6 +100,8 @@ namespace CarRental0915_01
 
                 // Remove car from available list
                 lstAvailableCars.Items.RemoveAt(index);
+
+                // Alter number available cars
                 numCarsAvailable--;
                 UpdatelblCarNum();
 
@@ -120,6 +122,46 @@ namespace CarRental0915_01
 
             // In case no car has been selected
             MessageBox.Show("You must select a car to rent.");
+        }
+
+        // Return car
+        private void btnReturn_Click(object sender, EventArgs e)
+        {
+            int index = lstReturnCars.SelectedIndex;
+
+            // If a car has been selected
+            if (index != -1)
+            {
+                // Get rented car
+                Car returnCar = (Car)lstReturnCars.SelectedItem;
+
+                // Set car to available
+                returnCar.forRent = false;
+
+                // Remove car from rented list
+                lstReturnCars.Items.RemoveAt(index);
+
+                // Add car to available list
+                lstAvailableCars.Items.Add(returnCar);
+
+                // Alter number available cars
+                numCarsAvailable++;
+                UpdatelblCarNum();
+
+                // Show rent message
+                string returnMSG = string.Format(
+                    "The {0} {1} has been successfully returned!\nThank you for using ACME services.",
+                    returnCar.color,
+                    returnCar.ToString());
+                MessageBox.Show(returnMSG);
+
+                // Return to 'main menu'
+                pnlReturnCar.Visible = false;
+                return;
+            }
+
+            // In case no car has been selected
+            MessageBox.Show("You must select a car to return.");
         }
     }
 }
