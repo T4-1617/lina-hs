@@ -13,9 +13,25 @@ namespace CarRental0915_01
     public partial class CarRental : Form
     {
 
+        /*
+         *      Known problem(s):
+         *          - Inconsistent variable naming, especially for the controls
+         *          - Variable carList stores cars but serves NO purpose. (as of yet)
+         * 
+         */
+
+        /// <summary>
+        /// A list of all cars in the database
+        /// </summary>
         System.Collections.ArrayList carList;
+        /// <summary>
+        /// Number of cars available for rent.
+        /// </summary>
         int numCarsAvailable;
-        Panel showPanel;
+        /// <summary>
+        /// Stores the panel which is currently visible
+        /// </summary>
+        Panel pnlShow;
 
         public CarRental()
         {
@@ -61,13 +77,13 @@ namespace CarRental0915_01
 
         }
 
-        // DRY functions
+        //// DRY functions
         /// <summary>
         /// Updates the label lblCarNum to represent the current number of cars available
         /// </summary>
         void UpdatelblCarNum()
         {
-            lblCarNum.Text = string.Format("We have {0} cars available.", numCarsAvailable);
+            lblCarNum.Text = string.Format("We have {0} car(s) available.", numCarsAvailable);
         }
         /// <summary>
         /// Shows the panel and hides the previous panel
@@ -76,14 +92,14 @@ namespace CarRental0915_01
         void PanelShow(Panel panel)
         {
             // Hide previous panel
-            if (showPanel != null)
+            if (pnlShow != null)
             {
-                showPanel.Visible = false;
+                pnlShow.Visible = false;
             }
 
-            // Show pressed panel
+            // Show new panel
             panel.Visible = true;
-            showPanel = panel;
+            pnlShow = panel;
         }
         /// <summary>
         /// Rent or return the car
@@ -110,27 +126,32 @@ namespace CarRental0915_01
                     numCarsAvailable++;
                     break;
                 default:
+                    // If car is being neither rented nor returned
                     return;
             }
 
-            UpdatelblCarNum();
             changedCar.rented = rented;
+            UpdatelblCarNum();
         }
 
-        // Show panels
+        //// Show panel
+        // Show rent car panel
         private void btnRentCar_Click(object sender, EventArgs e)
         {
             PanelShow(pnlRentCar);
         }
+        // Show add car panel
         private void btnAddCar_Click(object sender, EventArgs e)
         {
             PanelShow(pnlAddCar);
         }
+        // Show return car panel
         private void btnReturnCar_Click(object sender, EventArgs e)
         {
             PanelShow(pnlReturnCar);
         }
 
+        //// Program functionality
         // Rent car
         private void btnRent_Click(object sender, EventArgs e)
         {
@@ -149,10 +170,9 @@ namespace CarRental0915_01
                 return;
             }
 
-            // In case no car has been selected
+            // Error message: no car selected
             MessageBox.Show("You must select a car to rent.");
         }
-
         // Return car
         private void btnReturn_Click(object sender, EventArgs e)
         {
@@ -171,10 +191,9 @@ namespace CarRental0915_01
                 return;
             }
 
-            // In case no car has been selected
+            // Error message: no car selected
             MessageBox.Show("You must select a car to return.");
         }
-
         // Add car
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -202,10 +221,11 @@ namespace CarRental0915_01
                 tbxAddModel.Text = string.Empty;
                 tbxAddColor.Text = string.Empty;
 
-                // Return to 'main menu'
+                // Skip error message
                 return;
             }
 
+            // Error message: textboxes missing values
             MessageBox.Show("You must enter values in all textboxes!");
 
         }
