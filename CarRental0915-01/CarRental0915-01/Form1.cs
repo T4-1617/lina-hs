@@ -114,6 +114,7 @@ namespace CarRental0915_01
                 case true:
                     // If car is being rented
                     changedCar = (Car)lstAvailableCars.SelectedItem;
+                    changedCar.customer = string.Format("{0} {1}", tbxRentFName.Text, tbxRentLName.Text);
                     lstAvailableCars.Items.RemoveAt(lstAvailableCars.SelectedIndex);
                     numCarsAvailable--;
                     lstRentedCars.Items.Add(changedCar);
@@ -121,6 +122,7 @@ namespace CarRental0915_01
                 case false:
                     // If car is being returned
                     changedCar = (Car)lstRentedCars.SelectedItem;
+                    changedCar.customer = string.Empty;
                     lstRentedCars.Items.RemoveAt(lstRentedCars.SelectedIndex);
                     lstAvailableCars.Items.Add(changedCar);
                     numCarsAvailable++;
@@ -156,17 +158,29 @@ namespace CarRental0915_01
         private void btnRent_Click(object sender, EventArgs e)
         {
             int index = lstAvailableCars.SelectedIndex;
+            bool allTextboxesHaveValues = (tbxRentFName.Text != string.Empty && tbxRentLName.Text != string.Empty);
 
             // If a car has been selected
-            if (index != -1)
+            if (index != -1 && allTextboxesHaveValues)
             {
                 // Rent a car
                 ChangeCarRentStatus(true);
+
+                // Clear customer textboxes
+                tbxRentFName.Text = string.Empty;
+                tbxRentLName.Text = string.Empty;
 
                 // Show thank you panel
                 PanelShow(pnlRentThank);
                 
                 // Skip error message
+                return;
+            }
+
+            // Error message: customer name not entered
+            if (!allTextboxesHaveValues)
+            {
+                MessageBox.Show("You must enter your name to rent.");
                 return;
             }
 
