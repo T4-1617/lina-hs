@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRMLibrary
 {
-    class Customer : Person
+    public class Customer : Person
     {
         public int ID { get; set; }
 

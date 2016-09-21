@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRMLibrary
 {
-    class Employee : Person
+    public class Employee : Person
     {
         public int employeeNumber { get; set; }
         public string title { get; set; }
@@ -15,6 +15,11 @@ namespace CRMLibrary
         public Employee()
         {
             // ?
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}, {1}", GetFullName(), title);
         }
     }
 }

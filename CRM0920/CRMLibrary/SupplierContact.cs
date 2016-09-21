@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace CRMLibrary
 {
-    class SupplierContact : Person
+    public class SupplierContact : Person
     {
         public string company { get; set; }
 
         public SupplierContact(string company)
         {
             this.company = company;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} from {1}", GetFullName(), company);
         }
     }
 }
