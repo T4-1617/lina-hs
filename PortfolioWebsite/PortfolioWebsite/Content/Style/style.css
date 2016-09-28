@@ -48,6 +48,72 @@ h2 {
 
     float: left;
 }
+
+#main.wrapper {
+    height: calc(50% - 40px);
+    width: calc(100% - 40px);
+
+    padding: 20px;
+}
+#content.wrapper {
+    height: calc(100% - 40px);
+    width: calc(50% - 40px);
+
+    padding: 20px;
+
+    float: left;
+}
+#content .content {
+    width: calc(100% - 160px);
+    height: calc(100% - 160px);
+
+    padding: 80px;
+
+    /*box-shadow: 0 0 2px #000;*/
+}
+#content p {
+    margin-top: 20px;
+}
+
+p {
+    font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif
+}
+
+ul {
+    list-style: none;
+}
+
+#footer.wrapper {
+    height: calc(50% - 40px);
+    width: calc(100% - 40px);
+
+    padding: 20px;
+}
+#footer ul {
+    text-align: left;
+    width: 100%;
+}
+#footer ul i {
+    float: left;
+    margin-right: 20px;
+}
+#footer ul i:hover {
+    color: #5a5a5a;
+}
+#footer i:hover {
+    color: #fff;
+}
+#footer .content {
+    position: relative;
+    top: 50%;
+    left: 50%;
+
+    width: 300px;
+
+    transform: translate(-50%, -50%);
+}
+
+
 i {
     position: relative;
     top: 0;
