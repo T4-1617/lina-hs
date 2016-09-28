@@ -90,7 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Style\style.css" />
+    <Content Include="Content\Images\stockholm-stonepath.jpg" />
+    <Content Include="Content\Style\style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +115,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\font-awesome\css\" />
+    <Folder Include="Content\font-awesome\fonts\" />
+    <Folder Include="Content\font-awesome\less\" />
+    <Folder Include="Content\font-awesome\scss\" />
+    <Folder Include="Content\Scripts\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
