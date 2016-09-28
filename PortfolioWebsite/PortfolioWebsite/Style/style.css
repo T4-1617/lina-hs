@@ -3,14 +3,16 @@
     padding: 0;
 }
 
-body {}
+body {
+    font-size: 18px;
+}
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-transform: uppercase;
 }
 h1 {
-    font-size: 6vw;
+    font-size: 8vw;
 }
 
 #full-page.wrapper {
@@ -25,12 +27,20 @@ h1 {
 }
 
 #full-page .header {
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
 
     overflow: auto;
+
+    float: left;
+}
+
+@media (max-width: 600px) {
+    #full-page.wrapper {
+        height: 50vh;
+    }
 }
 
 .white {
