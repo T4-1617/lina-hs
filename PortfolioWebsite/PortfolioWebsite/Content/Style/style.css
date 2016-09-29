@@ -50,8 +50,9 @@ h2 {
 }
 
 #main.wrapper {
-    height: calc(50% - 40px);
     width: calc(100% - 40px);
+
+    overflow: auto;
 
     padding: 20px;
 }
@@ -75,6 +76,34 @@ h2 {
     margin-top: 20px;
 }
 
+@media (max-width: 1024px) and (min-width: 768px) {
+    #content .content {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+    }
+}
+@media (max-width: 767px) {
+
+    #content.wrapper {
+        width: calc(100% - 40px);
+    }
+
+    #content .content {
+        width: calc(100% - 40px);
+        height: calc(100% - 40px);
+
+        padding: 20px;
+    }
+}
+@media (max-width: 425px) {
+    #content .content {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+    }
+}
+
 p {
     font-family: 'Franklin Gothic Book', 'Arial Narrow', Arial, sans-serif
 }
@@ -84,7 +113,7 @@ ul {
 }
 
 #footer.wrapper {
-    height: calc(50% - 40px);
+    height: calc(50vh - 40px);
     width: calc(100% - 40px);
 
     padding: 20px;
@@ -113,7 +142,6 @@ ul {
     transform: translate(-50%, -50%);
 }
 
-
 i {
     position: relative;
     top: 0;
@@ -124,14 +152,12 @@ a {
     color: #fff;
 }
 
-
 @media (media-screen: desktop) {
     .down:hover {
         cursor: pointer;
         color: #1abc9c;
     }
 }
-
 @media (min-width: 1000px) {
     h1 {
         font-size: 80px;
@@ -156,7 +182,6 @@ a {
         display: none;
     }
 }
-
 
 .shade {
     height: 100%;
@@ -200,4 +225,3 @@ a {
 .bg-highlight-yellow {
     background-color: #f1c40f;
 }
-
